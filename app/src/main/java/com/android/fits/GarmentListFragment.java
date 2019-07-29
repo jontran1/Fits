@@ -79,6 +79,13 @@ public class GarmentListFragment extends Fragment {
             mGarments = garments;
         }
 
+        /**
+         * Creates the ViewHolder for the garment object. Uses the Layout from
+         * the main activity host. Which is the fragment_garment_list.xml.
+         * @param parent
+         * @param i
+         * @return
+         */
         @NonNull
         @Override
         public GarmentHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
