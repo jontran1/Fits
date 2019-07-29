@@ -18,7 +18,7 @@ public class GarmentLab {
      * @return
      */
     public static GarmentLab get(Context context){
-        if (context == null){
+        if (sGarmentLab == null){
             sGarmentLab = new GarmentLab(context);
         }
         return sGarmentLab;
