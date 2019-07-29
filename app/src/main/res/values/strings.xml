@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Fits</string>
+    <string name="garment_size">Size</string>
+    <string name="garment_color">Color</string>
+    <string name="garment_brand">Brand</string>
+    <string name="garment_store">Store</string>
+    <string name="garment_description">Description</string>
+    <string name="garment_type">Type</string>
 </resources>

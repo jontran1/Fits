@@ -7,6 +7,7 @@ public class Garment {
 
     private UUID mId;
     private Date mDate;
+
     private String mSize;
     private String mColor;
     private String mBrand;
