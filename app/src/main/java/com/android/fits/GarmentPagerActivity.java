@@ -45,7 +45,18 @@ public class GarmentPagerActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
+        //Remember that FragmentStatePagerAdapter is your agent managing the conversation
+        //with ViewPager. For your agent to do its job with the fragment that getItem(int)
+        //return, it needs to be able to add them to your activity. That is why it needs your FragmentManager.
         mViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
+            /**
+             * Uses the position argument to find the Garment and creates a
+             * new fragment using that garment.
+             *
+             * The pager always start at zero.
+             * @param position
+             * @return
+             */
             @Override
             public Fragment getItem(int position) {
                 Garment garment = mGarments.get(position);
@@ -57,6 +68,16 @@ public class GarmentPagerActivity extends AppCompatActivity {
                 return mGarments.size();
             }
         });
+
+        /**
+         * This for loop fixes the pager starting at zero.
+         */
+        for (int i = 0 ; i < mGarments.size(); i ++){
+            if (mGarments.get(i).getId().equals(garmentId)){
+                mViewPager.setCurrentItem(i);
+                break;
+            }
+        }
 
     }
 
