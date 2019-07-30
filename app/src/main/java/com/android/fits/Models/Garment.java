@@ -3,12 +3,11 @@ package com.android.fits.Models;
 import java.util.Date;
 import java.util.UUID;
 
-public class Garment {
+public abstract class Garment {
 
     private UUID mId;
     private Date mDate;
 
-    private String mSize;
     private String mColor;
     private String mBrand;
     private String mStore;
@@ -27,13 +26,9 @@ public class Garment {
         return mDate;
     }
 
-    public String getSize(){
-        return mSize;
-    }
+    public abstract String getSize();
 
-    public void setSize(String size){
-        this.mSize = size;
-    }
+    public abstract void setSize(String size);
 
     public String getColor(){
         return mColor;

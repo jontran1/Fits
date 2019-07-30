@@ -6,17 +6,32 @@ import java.util.List;
 
 public class Top extends Garment {
 
-    private Type type;
+    private String type;
+    private String mSize;
 
     public static enum Type{
         Bomber, Jacket, Shirt,
+    }
+
+    public static enum Size{
+        XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
     }
 
     public Top(){
         super();
     }
 
-    public void setType(Type type){
+    @Override
+    public String getSize(){
+        return mSize;
+    }
+
+    @Override
+    public void setSize(String size){
+        this.mSize = size;
+    }
+
+    public void setType(String type){
         this.type = type;
     }
 
@@ -38,6 +53,18 @@ public class Top extends Garment {
             types.add(type.toString());
         }
         return types;
+    }
+
+    /**
+     * Returns a list of sizes represented as strings.
+     * @return
+     */
+    public static List getSizes(){
+        List sizes = new ArrayList();
+        for (Size size : Size.values()){
+            sizes.add(size.toString());
+        }
+        return sizes;
     }
 
 }
