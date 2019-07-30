@@ -7,12 +7,20 @@
     android:paddingBottom="8dp">
 
     <TextView
+        android:id="@+id/garment_fragment_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Garment Name"/>
+        android:text="Garment Description[t"/>
     <TextView
+        android:id="@+id/garment_fragment_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Garment Size"/>
+    <TextView
+        android:id="@+id/garment_fragment_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date Added"/>
+
 
 </LinearLayout>

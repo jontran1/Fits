@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -53,6 +54,11 @@ public class GarmentListFragment extends Fragment {
 
     private class GarmentHolder extends RecyclerView.ViewHolder{
 
+        private TextView mDescriptionView;
+        private TextView mSizeView;
+        private TextView mDateView;
+        private Garment mGarment;
+
         /**
          * This constructor inflates lisT_item_garment.xml Immediately you pass it into
          * super(...), ViewHolder's constructor. The base ViewHolder class will then
@@ -62,6 +68,18 @@ public class GarmentListFragment extends Fragment {
          */
         public GarmentHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_garment, parent, false));
+            mDescriptionView = (TextView) itemView.findViewById(R.id.garment_fragment_description);
+            mSizeView = (TextView) itemView.findViewById(R.id.garment_fragment_size);
+            mDateView = (TextView) itemView.findViewById(R.id.garment_fragment_date);
+
+
+        }
+
+        public void bind(Garment garment){
+            mGarment = garment;
+            mDescriptionView.setText(mGarment.getDescription());
+            mSizeView.setText(mGarment.getSize());
+            mDateView.setText(mGarment.getDate().toString());
         }
 
     }
@@ -84,7 +102,7 @@ public class GarmentListFragment extends Fragment {
          * the main activity host. Which is the fragment_garment_list.xml.
          * @param parent
          * @param i
-         * @return
+         * @return GarmentHolder
          */
         @NonNull
         @Override
@@ -96,7 +114,8 @@ public class GarmentListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull GarmentHolder garmentHolder, int i) {
-
+            Garment garment = mGarments.get(i);
+            garmentHolder.bind(garment);
         }
 
         @Override
