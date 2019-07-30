@@ -1,5 +1,6 @@
 package com.android.fits;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -61,7 +63,8 @@ public class GarmentListFragment extends Fragment {
      * Recycler view calls onBindViewHolder()
      * Adapter binds the data to the ViewHolder.
      */
-    private class GarmentHolder extends RecyclerView.ViewHolder{
+    private class GarmentHolder extends RecyclerView.ViewHolder implements
+    View.OnClickListener{
 
         private TextView mDescriptionView;
         private TextView mSizeView;
@@ -82,13 +85,24 @@ public class GarmentListFragment extends Fragment {
         */
         public GarmentHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_garment, parent, false));
-            mDescriptionView = (TextView) itemView.findViewById(R.id.garment_fragment_description);
-            mSizeView = (TextView) itemView.findViewById(R.id.garment_fragment_size);
-            mDateView = (TextView) itemView.findViewById(R.id.garment_fragment_date);
+            itemView.setOnClickListener(this);
+            mDescriptionView = (TextView) itemView.findViewById(R.id.garment_list_item_description);
+            mSizeView = (TextView) itemView.findViewById(R.id.garment_list_item_size);
+            mDateView = (TextView) itemView.findViewById(R.id.garment_list_item_date);
 
 
         }
 
+        @Override
+        public void onClick(View view){
+            Intent intent = GarmentPagerActivity.newIntent(getActivity(), mGarment.getId());
+            startActivity(intent);
+        }
+
+        /**
+         * Binds the data to the view holder.
+         * @param garment
+         */
         public void bind(Garment garment){
             mGarment = garment;
             mDescriptionView.setText(mGarment.getDescription());
@@ -130,6 +144,13 @@ public class GarmentListFragment extends Fragment {
             return new GarmentHolder(layoutInflater, parent);
         }
 
+        /**
+         * Is called by the Recycler view. It calls the bind function in
+         * Recycler view.
+         * Binds the data to the view holder.
+         * @param garmentHolder
+         * @param i
+         */
         @Override
         public void onBindViewHolder(@NonNull GarmentHolder garmentHolder, int i) {
             Garment garment = mGarments.get(i);

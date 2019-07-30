@@ -36,7 +36,7 @@ public class GarmentLab {
             mGarments.get(i).setBrand("Wall-Mart");
             mGarments.get(i).setColor("Black");
             mGarments.get(i).setSize("M");
-            mGarments.get(i).setDescription("Black Jacket with blue buttons ");
+            mGarments.get(i).setDescription("Black Jacket with blue buttons" + i);
         }
     }
 

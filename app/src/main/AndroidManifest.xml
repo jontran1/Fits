@@ -19,6 +19,9 @@
         <activity android:name=".GarmentActivity">
 
         </activity>
+        <activity android:name=".GarmentPagerActivity">
+
+        </activity>
     </application>
 
 </manifest>
