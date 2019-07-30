@@ -52,6 +52,15 @@ public class GarmentListFragment extends Fragment {
 
     }
 
+    /**
+     * Steps
+     * Recycler view calls getItemCount()
+     * Adapter returns count\
+     * Recycler view calls onCreateViewHolder()
+     * Adapter returns ViewHolder
+     * Recycler view calls onBindViewHolder()
+     * Adapter binds the data to the ViewHolder.
+     */
     private class GarmentHolder extends RecyclerView.ViewHolder{
 
         private TextView mDescriptionView;
@@ -60,12 +69,17 @@ public class GarmentListFragment extends Fragment {
         private Garment mGarment;
 
         /**
-         * This constructor inflates lisT_item_garment.xml Immediately you pass it into
-         * super(...), ViewHolder's constructor. The base ViewHolder class will then
-         * hold on to the fragment_garment_list.xml view.
-         * @param inflater
-         * @param parent
-         */
+        * This constructor inflates lisT_item_garment.xml Immediately you pass it into
+        * super(...), ViewHolder's constructor. The base ViewHolder class will then
+        * hold on to the fragment_garment_list.xml view.
+        * RecyclerView just shows the items. The adapter has the information
+        * on the models and lists. When recyclerview needs to display a new ViewHolder or
+        * connect a garment object to an existing viewholder it will ask the adapter for
+        * help by calling a method on it.
+        *
+        * @param inflater
+        * @param parent
+        */
         public GarmentHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_garment, parent, false));
             mDescriptionView = (TextView) itemView.findViewById(R.id.garment_fragment_description);
@@ -93,6 +107,10 @@ public class GarmentListFragment extends Fragment {
     private class GarmentAdapter extends RecyclerView.Adapter<GarmentHolder>{
         private List<Garment> mGarments;
 
+        /**
+         * Gets the list for the Recycler view.
+         * @param garments
+         */
         public GarmentAdapter(List<Garment> garments){
             mGarments = garments;
         }
