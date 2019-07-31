@@ -38,12 +38,15 @@ public class GarmentLab {
                 mGarments.get(i).setColor("Black");
                 mGarments.get(i).setSize("M");
                 mGarments.get(i).setDescription("Black Jacket with black and white buttons " + i);
+                mGarments.get(i).setType("Jacket");
             }else {
                 mGarments.add(new Pants());
                 mGarments.get(i).setBrand("Wall-Mart");
                 mGarments.get(i).setColor("Black");
                 mGarments.get(i).setSize("M");
                 mGarments.get(i).setDescription("Navy Blue jeans with light tares " + i);
+                mGarments.get(i).setType("Chinos");
+
             }
 
         }

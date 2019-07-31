@@ -2,16 +2,18 @@ package com.android.fits;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
-import com.android.fits.Models.Top;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +22,7 @@ public class GarmentFragment extends Fragment {
     private Garment mGarment;
     private Spinner mSpinnerTypes;
     private Spinner mSpinnerSizes;
-    private TextView mDescription;
+    private EditText mDescription;
 
     private static final String ARG_GARMENT_ID = "garment_id";
     private List<String> mTypes;
@@ -65,29 +67,85 @@ public class GarmentFragment extends Fragment {
 
         UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
         mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
+        mTypes = mGarment.getTypes();
+        mSizes = mGarment.getSizes();
+        mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
+        mSpinnerSizes = (Spinner)v.findViewById(R.id.garment_fragment_size);
+        setSpinnerType();
+        setSpinnerSizes();
 
-
-        mDescription = (TextView)v.findViewById(R.id.garment_fragment_description);
+        mDescription = (EditText)v.findViewById(R.id.garment_fragment_description);
         mDescription.setText(mGarment.getDescription());
-        setSpinners(v);
+        setDescription();
 
         return v;
     }
 
+    private void setDescription(){
+        mDescription.setText(mGarment.getDescription());
+        mDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mGarment.setDescription(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     /**
-     * Set the spinners widgets and adapters.
-     * @param v
+     * Set the spinners Type widgets and adapters.
+     * Sets listeners.
      */
-    public void setSpinners(View v){
+    private void setSpinnerType(){
 
-        mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
-        mSpinnerSizes = (Spinner)v.findViewById(R.id.garment_fragment_size);
-        mTypes = mGarment.getTypes();
-        mSizes = mGarment.getSizes();
 
-        ArrayAdapter<String> adapterTypes = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, mTypes);
+        final ArrayAdapter<String> adapterTypes = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, mTypes);
         mSpinnerTypes.setAdapter(adapterTypes);
+
+        mSpinnerTypes.setSelection(mTypes.indexOf(mGarment.getType()));
+        mSpinnerTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mGarment.setType(mTypes.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    /**
+     * Set the spinners Sizes widgets and adapters.
+     * Sets listeners.
+     */
+    private void setSpinnerSizes(){
         ArrayAdapter<String> adapterSizes = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, mSizes);
         mSpinnerSizes.setAdapter(adapterSizes);
+        mSpinnerSizes.setSelection(mSizes.indexOf(mGarment.getSize()));
+
+        mSpinnerSizes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mGarment.setSize(mSizes.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
