@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
 
+import java.util.List;
 import java.util.UUID;
 
 public class GarmentFragment extends Fragment {
     private Garment mGarment;
     private Spinner mSpinnerGarmentType;
     private static final String ARG_GARMENT_ID = "garment_id";
+    private List<String> mTypes;
+    private List<String> mSizes;
 
     /**
      * An activity life cycle method. Its public because it
@@ -27,11 +30,6 @@ public class GarmentFragment extends Fragment {
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
-        mGarment = new Garment();
-        mGarment.setBrand("Wall-Mart");
-        mGarment.setColor("Black");
-        mGarment.setSize("M");
-        mGarment.setDescription("Black Jacket with blue buttons");
     }
 
     /**
@@ -61,7 +59,8 @@ public class GarmentFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_garment, container, false);
 
         mSpinnerGarmentType = (Spinner)v.findViewById(R.id.garment_fragment_type);
-
+        mTypes = Top.getTypes();
+        mSizes = Top.getSizes();
 
 
         TextView textView = (TextView)v.findViewById(R.id.garment_fragment_description);

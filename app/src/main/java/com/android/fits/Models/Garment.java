@@ -3,7 +3,7 @@ package com.android.fits.Models;
 import java.util.Date;
 import java.util.UUID;
 
-public abstract class Garment {
+public class Garment {
 
     private UUID mId;
     private Date mDate;
@@ -12,10 +12,42 @@ public abstract class Garment {
     private String mBrand;
     private String mStore;
     private String mDescription;
+    private String mSize;
+    private String mGarmentType;
+    private String mType;
+
+    public static enum GarmentType{
+        Top, Pants, Shoes, Hat
+    }
+
+    public static enum TopType{
+        Bomber, Jacket, Shirt,
+    }
+
+    public static enum TopSize{
+        XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
+    }
+
 
     public Garment(){
         mId = UUID.randomUUID();
         mDate = new Date();
+    }
+
+    public String getGarmentType() {
+        return mGarmentType;
+    }
+
+    public void setGarmentType(String garmentType) {
+        mGarmentType = garmentType;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String type) {
+        mType = type;
     }
 
     public UUID getId(){
@@ -26,9 +58,13 @@ public abstract class Garment {
         return mDate;
     }
 
-    public abstract String getSize();
+    public String getSize(){
+        return mSize;
+    }
 
-    public abstract void setSize(String size);
+    public void setSize(String size){
+        this.mSize = size;
+    }
 
     public String getColor(){
         return mColor;
