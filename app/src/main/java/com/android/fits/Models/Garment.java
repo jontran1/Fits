@@ -1,9 +1,11 @@
 package com.android.fits.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
-public class Garment {
+public abstract class Garment {
 
     private UUID mId;
     private Date mDate;
@@ -13,20 +15,9 @@ public class Garment {
     private String mStore;
     private String mDescription;
     private String mSize;
-    private String mGarmentType;
     private String mType;
 
-    public static enum GarmentType{
-        Top, Pants, Shoes, Hat
-    }
 
-    public static enum TopType{
-        Bomber, Jacket, Shirt,
-    }
-
-    public static enum TopSize{
-        XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
-    }
 
 
     public Garment(){
@@ -34,13 +25,10 @@ public class Garment {
         mDate = new Date();
     }
 
-    public String getGarmentType() {
-        return mGarmentType;
-    }
+    public abstract List<String> getSizes();
 
-    public void setGarmentType(String garmentType) {
-        mGarmentType = garmentType;
-    }
+    public abstract List<String> getTypes();
+
 
     public String getType() {
         return mType;

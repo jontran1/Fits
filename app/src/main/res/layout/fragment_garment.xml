@@ -9,7 +9,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/garment_type"/>
+        android:text="@string/type"/>
     <Spinner
         android:id="@+id/garment_fragment_type"
         android:layout_width="match_parent"
@@ -19,17 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/garment_size"/>
-    <EditText
+    <Spinner
         android:id="@+id/garment_fragment_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/garment_color"/>
-    <EditText
-        android:id="@+id/garment_fragment_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView

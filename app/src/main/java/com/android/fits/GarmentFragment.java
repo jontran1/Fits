@@ -5,18 +5,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
+import com.android.fits.Models.Top;
 
 import java.util.List;
 import java.util.UUID;
 
 public class GarmentFragment extends Fragment {
     private Garment mGarment;
-    private Spinner mSpinnerGarmentType;
+    private Spinner mSpinnerTypes;
+    private Spinner mSpinnerSizes;
+    private TextView mDescription;
+
     private static final String ARG_GARMENT_ID = "garment_id";
     private List<String> mTypes;
     private List<String> mSizes;
@@ -58,15 +63,31 @@ public class GarmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_garment, container, false);
 
-        mSpinnerGarmentType = (Spinner)v.findViewById(R.id.garment_fragment_type);
-        mTypes = Top.getTypes();
-        mSizes = Top.getSizes();
+        UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
+        mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
 
 
-        TextView textView = (TextView)v.findViewById(R.id.garment_fragment_description);
-        Garment garment = GarmentLab.get(getActivity()).getGarment((UUID)getArguments().getSerializable(ARG_GARMENT_ID));
-        textView.setText(garment.getDescription());
+        mDescription = (TextView)v.findViewById(R.id.garment_fragment_description);
+        mDescription.setText(mGarment.getDescription());
+        setSpinners(v);
 
         return v;
+    }
+
+    /**
+     * Set the spinners widgets and adapters.
+     * @param v
+     */
+    public void setSpinners(View v){
+
+        mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
+        mSpinnerSizes = (Spinner)v.findViewById(R.id.garment_fragment_size);
+        mTypes = mGarment.getTypes();
+        mSizes = mGarment.getSizes();
+
+        ArrayAdapter<String> adapterTypes = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, mTypes);
+        mSpinnerTypes.setAdapter(adapterTypes);
+        ArrayAdapter<String> adapterSizes = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, mSizes);
+        mSpinnerSizes.setAdapter(adapterSizes);
     }
 }

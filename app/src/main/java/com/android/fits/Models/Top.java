@@ -1,0 +1,46 @@
+package com.android.fits.Models;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Top extends Garment {
+
+    public static enum TopType{
+        Bomber, Jacket, Shirt,
+    }
+
+    public static enum TopSize{
+        XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
+    }
+
+    public Top(){
+        super();
+    }
+
+
+    /**
+     * Returns a list of sizes specific to that garment type
+     * @return sizes
+     */
+    @Override
+    public  List<String> getSizes(){
+        List<String> sizes = new ArrayList<>();
+            for (TopSize size: TopSize.values()){
+                sizes.add(size.toString());
+            }
+        return sizes;
+    }
+
+    /**
+     * Returns a list of top types
+     * @return types
+     */
+    @Override
+    public List<String> getTypes(){
+        List<String> types = new ArrayList<>();
+        for (TopType type : TopType.values()){
+            types.add(type.toString());
+        }
+        return types;
+    }
+}

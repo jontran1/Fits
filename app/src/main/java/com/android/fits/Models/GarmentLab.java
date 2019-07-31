@@ -32,11 +32,20 @@ public class GarmentLab {
     private GarmentLab (Context context){
         mGarments = new ArrayList<>();
         for (int i = 0; i < 50; i ++){
-            mGarments.add(new Garment());
-            mGarments.get(i).setBrand("Wall-Mart");
-            mGarments.get(i).setColor("Black");
-            mGarments.get(i).setSize("M");
-            mGarments.get(i).setDescription("Black Jacket with blue buttons" + i);
+            if (i%2 == 0){
+                mGarments.add(new Top());
+                mGarments.get(i).setBrand("Wall-Mart");
+                mGarments.get(i).setColor("Black");
+                mGarments.get(i).setSize("M");
+                mGarments.get(i).setDescription("Black Jacket with black and white buttons " + i);
+            }else {
+                mGarments.add(new Pants());
+                mGarments.get(i).setBrand("Wall-Mart");
+                mGarments.get(i).setColor("Black");
+                mGarments.get(i).setSize("M");
+                mGarments.get(i).setDescription("Navy Blue jeans with light tares " + i);
+            }
+
         }
     }
 
