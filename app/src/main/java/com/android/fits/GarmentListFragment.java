@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -55,6 +54,18 @@ public class GarmentListFragment extends Fragment {
     }
 
     /**
+     * The garment fragment is pushed on the stack but
+     * once the user backs out and that fragment is popped
+     * off the stack. The fragment list needs to update
+     * whatever changes the user made to the model.
+     */
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
+    /**
      * Steps
      * Recycler view calls getItemCount()
      * Adapter returns count\
@@ -66,7 +77,7 @@ public class GarmentListFragment extends Fragment {
     private class GarmentHolder extends RecyclerView.ViewHolder implements
     View.OnClickListener{
 
-        private TextView mDescriptionView;
+        private TextView mTypeView;
         private TextView mSizeView;
         private TextView mDateView;
         private Garment mGarment;
@@ -79,6 +90,8 @@ public class GarmentListFragment extends Fragment {
         * on the models and lists. When recyclerview needs to display a new ViewHolder or
         * connect a garment object to an existing viewholder it will ask the adapter for
         * help by calling a method on it.
+         *
+         * NOTE MAIN PURPOSE is for setting up widgets. The bind functions binds the model with view.
         *
         * @param inflater
         * @param parent
@@ -86,11 +99,9 @@ public class GarmentListFragment extends Fragment {
         public GarmentHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_garment, parent, false));
             itemView.setOnClickListener(this);
-            mDescriptionView = (TextView) itemView.findViewById(R.id.garment_list_item_description);
+            mTypeView = (TextView) itemView.findViewById(R.id.garment_list_item_type);
             mSizeView = (TextView) itemView.findViewById(R.id.garment_list_item_size);
             mDateView = (TextView) itemView.findViewById(R.id.garment_list_item_date);
-
-
         }
 
         @Override
@@ -105,7 +116,7 @@ public class GarmentListFragment extends Fragment {
          */
         public void bind(Garment garment){
             mGarment = garment;
-            mDescriptionView.setText(mGarment.getDescription());
+            mTypeView.setText(mGarment.getType());
             mSizeView.setText(mGarment.getSize());
             mDateView.setText(mGarment.getDate().toString());
         }
