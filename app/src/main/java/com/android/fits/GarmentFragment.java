@@ -23,6 +23,8 @@ public class GarmentFragment extends Fragment {
     private Spinner mSpinnerTypes;
     private Spinner mSpinnerSizes;
     private EditText mDescription;
+    private EditText mStore;
+    private EditText mBrand;
 
     private static final String ARG_GARMENT_ID = "garment_id";
     private List<String> mTypes;
@@ -70,18 +72,72 @@ public class GarmentFragment extends Fragment {
         mTypes = mGarment.getTypes();
         mSizes = mGarment.getSizes();
         mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
-        mSpinnerSizes = (Spinner)v.findViewById(R.id.garment_fragment_size);
         setSpinnerType();
+        mSpinnerSizes = (Spinner)v.findViewById(R.id.garment_fragment_size);
         setSpinnerSizes();
 
         mDescription = (EditText)v.findViewById(R.id.garment_fragment_description);
-        mDescription.setText(mGarment.getDescription());
-        setDescription();
+        setDescriptionEditText();
+
+        mStore = (EditText) v.findViewById(R.id.garment_fragment_store);
+        setStoreEditText();
+
+        mBrand = (EditText) v.findViewById(R.id.garment_fragment_brand);
+        setBrandEditText();
 
         return v;
     }
 
-    private void setDescription(){
+    /**
+     * Set up the widget for Brand EditText and listener.
+     */
+    private void setBrandEditText(){
+        mBrand.setText(mGarment.getBrand());
+        mBrand.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mGarment.setBrand(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    /**
+     * Set up the widget for Store EditText and listener.
+     */
+    private void setStoreEditText(){
+        mStore.setText(mGarment.getStore());
+        mStore.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mGarment.setStore(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    /**
+     * Sets up the Description EditText widget, including the listener.
+     */
+    private void setDescriptionEditText(){
         mDescription.setText(mGarment.getDescription());
         mDescription.addTextChangedListener(new TextWatcher() {
             @Override
@@ -147,5 +203,12 @@ public class GarmentFragment extends Fragment {
 
             }
         });
+    }
+
+    /**
+     * Update garment model.
+     */
+    private void updateGarment(){
+
     }
 }

@@ -27,6 +27,15 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/garment_brand"/>
+    <EditText
+        android:id="@+id/garment_fragment_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/garment_store"/>
     <EditText
         android:id="@+id/garment_fragment_store"

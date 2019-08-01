@@ -11,7 +11,8 @@ public class GarmentActivity extends SingleFragmentActivity {
     private static final String EXTRA_GARMENT_ID = "com.android.fits.garment_id";
 
     /**
-     * Returns an intent with the extra of garmentId.
+     * Returns an intent with the extra of garmentId. This is for
+     * starting an activity with an intent.
      * @param context
      * @param garmentId
      * @return

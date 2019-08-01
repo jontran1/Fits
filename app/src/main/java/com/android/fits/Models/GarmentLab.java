@@ -34,18 +34,21 @@ public class GarmentLab {
         for (int i = 0; i < 50; i ++){
             if (i%2 == 0){
                 mGarments.add(new Top());
-                mGarments.get(i).setBrand("Wall-Mart");
+                mGarments.get(i).setBrand("Nike");
                 mGarments.get(i).setColor("Black");
                 mGarments.get(i).setSize("M");
                 mGarments.get(i).setDescription("Black Jacket with black and white buttons " + i);
                 mGarments.get(i).setType("Jacket");
+                mGarments.get(i).setStore("Wal-Mark");
             }else {
                 mGarments.add(new Pants());
-                mGarments.get(i).setBrand("Wall-Mart");
+                mGarments.get(i).setBrand("Nike");
                 mGarments.get(i).setColor("Black");
                 mGarments.get(i).setSize("M");
                 mGarments.get(i).setDescription("Navy Blue jeans with light tares " + i);
                 mGarments.get(i).setType("Chinos");
+                mGarments.get(i).setStore("Wal-Mark");
+
 
             }
 

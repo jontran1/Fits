@@ -54,9 +54,7 @@ public abstract class Garment {
         this.mSize = size;
     }
 
-    public String getColor(){
-        return mColor;
-    }
+
 
     public void setColor(String color){
         this.mColor = color;
@@ -67,7 +65,7 @@ public abstract class Garment {
     }
 
     public void setBrand(String brand){
-        this.mBrand = mBrand;
+        this.mBrand = brand;
     }
 
     public String getStore(){
