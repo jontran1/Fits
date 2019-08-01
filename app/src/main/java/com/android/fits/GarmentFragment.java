@@ -75,8 +75,8 @@ public class GarmentFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_garment, container, false);
 
         UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
+        System.out.println("inside Garmentfragmnet: " + GarmentId);
         mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
-        Log.d("Garment Exist?" , mGarment.getDescription());
         mTypes = mGarment.getTypes();
         mSizes = mGarment.getSizes();
         mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);

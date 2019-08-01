@@ -6,11 +6,11 @@ import java.util.List;
 public class Pants extends Garment {
 
     public static enum PantsType{
+        Other("Other"),
         Jeans("Jean"),
         Khakis("Khakis"),
         Chinos("Chinos"),
-        Cargo_Pants("Cargo Pants"),
-        Other("Other");
+        Cargo_Pants("Cargo Pants");
 
         private String name;
 

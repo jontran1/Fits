@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <RadioButton
+        android:id="@+id/radio_hats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/radio_hats"
+        />
+    <RadioButton
+        android:id="@+id/radio_tops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/radio_tops"
+        />
+    <RadioButton
+        android:id="@+id/radio_pants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/radio_pants"
+        />
+    <RadioButton
+        android:id="@+id/radio_shoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/radio_shoes"
+        />
+    <Button
+        android:id="@+id/dialog_new_item_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"/>
+</RadioGroup>

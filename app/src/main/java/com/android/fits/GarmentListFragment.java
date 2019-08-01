@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
+import com.android.fits.Models.Pants;
 import com.android.fits.Models.Top;
 
 import java.io.File;
@@ -32,8 +34,12 @@ import java.util.UUID;
 public class GarmentListFragment extends Fragment {
     private RecyclerView mGarmentRecyclerView;
     private GarmentAdapter mGarmentAdapter;
+
+    // Uniquely identifies the DialogFragment in FragmentManager's list.
+    private static final String DIALOG_NEW_ITEM = "NewItemDialog";
+
     private static final int REQUEST_PHOTO = 0;
-    private static final String EXTRA_PHOTO_ID = "com.android.fits.EXTRA_PHOTO_ID";
+    private static final int REQUEST_NEW_ITEM = 1;
     private File mPhotoFile;
 
     /**
@@ -240,15 +246,7 @@ public class GarmentListFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.new_item:
                 Toast.makeText(getActivity(),"new item was clicked",Toast.LENGTH_SHORT).show();
-                Top top = new Top();
-                top.setBrand("Nike");
-                top.setSize(Top.TopSize.Large.toString());
-                top.setSize("THIS IS A TEST CAMERA FEATURE....");
-                top.setDescription("THIS IS A NEW OBJECT TAKENN BY THE CAMERA ");
-                top.setType(Top.TopType.Bomber.toString());
-                top.setStore("K-Mart");
-                GarmentLab.get(getActivity()).addGarment(top);
-                startCamera(top);
+                startItemCreationDialog();
 
                 //Returns true to indicate no further processing is needed.
                 return true;
@@ -262,6 +260,13 @@ public class GarmentListFragment extends Fragment {
         }
     }
 
+    private void startItemCreationDialog(){
+        FragmentManager manager = getFragmentManager();
+        CreateItemDialogFragment dialog = new CreateItemDialogFragment();
+        dialog.setTargetFragment(GarmentListFragment.this, REQUEST_NEW_ITEM);
+        dialog.show(manager, DIALOG_NEW_ITEM);
+    }
+
     /**
      * Starts up the camera app.
      */
@@ -273,7 +278,6 @@ public class GarmentListFragment extends Fragment {
         Uri uri = FileProvider.getUriForFile(getActivity(),"com.android.fits.fileprovider", mPhotoFile);
 
         captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        captureImage.putExtra(EXTRA_PHOTO_ID, garment.getId());
 
         List<ResolveInfo> cameraActivities = getActivity()
                 .getPackageManager().queryIntentActivities(captureImage,
@@ -301,6 +305,21 @@ public class GarmentListFragment extends Fragment {
             updateUI();
             Intent intent = GarmentActivity.newIntent(getActivity(), mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1).getId());
             startActivity(intent);
+        }else if (requestCode == REQUEST_NEW_ITEM){
+
+            UUID garmentId = (UUID)data.getSerializableExtra(CreateItemDialogFragment.EXTRA_ID);
+            System.out.println(" inside result of parent fragment " +garmentId);
+            Intent intent = GarmentActivity.newIntent(getActivity(), garmentId);
+            startActivity(intent);
+
         }
     }
+//
+//    public static void main(String[] args) {
+//        Garment top = new Top();
+//        Garment pants = new Pants();
+//        System.out.println(pants.getTypes());
+//
+//        System.out.println(top.getTypes());
+//    }
 }
