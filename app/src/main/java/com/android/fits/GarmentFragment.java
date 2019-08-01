@@ -1,7 +1,15 @@
 package com.android.fits;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,10 +41,13 @@ public class GarmentFragment extends Fragment {
     private TextView mDate;
     private ImageView mImageView;
     private File mPhotoFile;
+    private ImageButton mImageButton;
 
     private static final String ARG_GARMENT_ID = "garment_id";
     private List<String> mTypes;
     private List<String> mSizes;
+
+    private static final int REQUEST_PHOTO = 2;
 
     /**
      * An activity life cycle method. Its public because it
@@ -46,6 +58,9 @@ public class GarmentFragment extends Fragment {
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
+        UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
+        mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
+        mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(mGarment);
     }
 
     /**
@@ -74,9 +89,6 @@ public class GarmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_garment, container, false);
 
-        UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
-        System.out.println("inside Garmentfragmnet: " + GarmentId);
-        mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
         mTypes = mGarment.getTypes();
         mSizes = mGarment.getSizes();
         mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
@@ -97,13 +109,49 @@ public class GarmentFragment extends Fragment {
         mDate.setText("Date Create: " + mGarment.getDate().toString());
 
         mImageView = (ImageView)v.findViewById(R.id.garment_fragment_photo);
+        mImageButton = (ImageButton)v.findViewById(R.id.garment_fragment_camera_button);
+
         setImageView();
         return v;
     }
 
     private void setImageView(){
+        PackageManager packageManager = getActivity().getPackageManager();
+
         mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(mGarment);
         mImageView.setImageBitmap(PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity()));
+        final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        boolean canTakePhoto = mPhotoFile != null && captureImage.resolveActivity(packageManager) != null;
+        mImageButton.setEnabled(canTakePhoto);
+
+        mImageButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Uses the camera feature to take a photo of the crime.
+             * Starts a hold new activity for the camera, once that activity dies
+             * the result function in CrimeFragment.java is called and determines
+             * what happens.
+             *
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                Uri uri = FileProvider.getUriForFile(getActivity(),
+                        "com.android.fits.fileprovider",
+                        mPhotoFile);
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+                List<ResolveInfo> cameraActivities = getActivity()
+                        .getPackageManager().queryIntentActivities(captureImage,
+                                PackageManager.MATCH_DEFAULT_ONLY);
+
+                for (ResolveInfo activity : cameraActivities) {
+                    getActivity().grantUriPermission(activity.activityInfo.packageName,
+                            uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
+
+                startActivityForResult(captureImage, REQUEST_PHOTO);
+            }
+        });
     }
 
     /**
@@ -227,6 +275,51 @@ public class GarmentFragment extends Fragment {
      * Update garment model.
      */
     private void updateGarment(){
-
+        GarmentLab.get(getActivity()).getGarment(mGarment.getId());
     }
+
+    /**
+     * Allows the parent fragment to react to the child's fragment death.
+     * If the user has made a change to a crime model in the child fragment.
+     * This function will allow the parent fragment to know and react accordingly.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (resultCode != Activity.RESULT_OK){
+            return;
+        }
+
+        if (requestCode == REQUEST_PHOTO){
+            Uri uri = FileProvider.getUriForFile(getActivity(),
+                    "com.bignerdranch.android.criminalintent.fileprovider",
+                    mPhotoFile);
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+            updateGarment();
+            updatePhotoView();
+        }
+    }
+
+    /**
+     * Gets the correct scale for the image by calling
+     * getScaledBitmap. That is because using the full image
+     * is inefficient.
+     *
+     * Loads the Bitmap into the image view.
+     */
+    private void updatePhotoView(){
+        if (mPhotoFile == null || !mPhotoFile.exists()){
+            mImageView.setImageDrawable(null);
+        }else {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(
+                    mPhotoFile.getPath(),
+                    getActivity()
+            );
+            mImageView.setImageBitmap(bitmap);
+        }
+    }
+
 }
