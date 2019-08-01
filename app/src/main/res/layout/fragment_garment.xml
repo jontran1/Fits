@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:orientation="vertical">
+    <ImageView
+        android:id="@+id/garment_fragment_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitCenter"
+        android:cropToPadding="true"
+        android:background="@android:color/darker_gray"/>
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"

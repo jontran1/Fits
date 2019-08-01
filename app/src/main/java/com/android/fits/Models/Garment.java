@@ -10,7 +10,6 @@ public abstract class Garment {
     private UUID mId;
     private Date mDate;
 
-    private String mColor;
     private String mBrand;
     private String mStore;
     private String mDescription;
@@ -55,11 +54,6 @@ public abstract class Garment {
     }
 
 
-
-    public void setColor(String color){
-        this.mColor = color;
-    }
-
     public String getBrand(){
         return this.mBrand;
     }
@@ -82,6 +76,10 @@ public abstract class Garment {
 
     public void setDescription(String description){
         this.mDescription = description;
+    }
+
+    public String getPhotoFileName(){
+        return "IMG_" + getId().toString() + ".jpg";
     }
 
 }

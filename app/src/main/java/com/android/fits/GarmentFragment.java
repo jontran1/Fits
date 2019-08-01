@@ -4,18 +4,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +30,8 @@ public class GarmentFragment extends Fragment {
     private EditText mStore;
     private EditText mBrand;
     private TextView mDate;
+    private ImageView mImageView;
+    private File mPhotoFile;
 
     private static final String ARG_GARMENT_ID = "garment_id";
     private List<String> mTypes;
@@ -71,6 +76,7 @@ public class GarmentFragment extends Fragment {
 
         UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
         mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
+        Log.d("Garment Exist?" , mGarment.getDescription());
         mTypes = mGarment.getTypes();
         mSizes = mGarment.getSizes();
         mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
@@ -89,7 +95,13 @@ public class GarmentFragment extends Fragment {
 
         mDate = (TextView) v.findViewById(R.id.garment_fragment_date);
         mDate.setText("Date Create: " + mGarment.getDate().toString());
+
+        mImageView = (ImageView)v.findViewById(R.id.garment_fragment_photo);
         return v;
+    }
+
+    private void setImageView(){
+        mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(mGarment);
     }
 
     /**

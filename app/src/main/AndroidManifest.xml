@@ -16,13 +16,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GarmentActivity">
+        <activity android:name=".GarmentActivity"
+            android:parentActivityName=".GarmentListActivity">
 
         </activity>
         <activity android:name=".GarmentPagerActivity"
             android:parentActivityName=".GarmentListActivity">
 
         </activity>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.android.fits.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files"
+                />
+
+        </provider>
+
     </application>
 
 </manifest>

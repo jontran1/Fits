@@ -1,9 +1,15 @@
 package com.android.fits;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,12 +23,18 @@ import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
+import com.android.fits.Models.Top;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 public class GarmentListFragment extends Fragment {
     private RecyclerView mGarmentRecyclerView;
     private GarmentAdapter mGarmentAdapter;
+    private static final int REQUEST_PHOTO = 0;
+    private static final String EXTRA_PHOTO_ID = "com.android.fits.EXTRA_PHOTO_ID";
+    private File mPhotoFile;
 
     /**
      * Sets up the view for GarmentListFragment.
@@ -102,8 +114,7 @@ public class GarmentListFragment extends Fragment {
         * on the models and lists. When recyclerview needs to display a new ViewHolder or
         * connect a garment object to an existing viewholder it will ask the adapter for
         * help by calling a method on it.
-         *
-         * NOTE MAIN PURPOSE is for setting up widgets. The bind functions binds the model with view.
+        * NOTE MAIN PURPOSE is for setting up widgets. The bind functions binds the model with view.
         *
         * @param inflater
         * @param parent
@@ -176,7 +187,7 @@ public class GarmentListFragment extends Fragment {
          */
         @Override
         public void onBindViewHolder(@NonNull GarmentHolder garmentHolder, int i) {
-            Garment garment = mGarments.get(i);
+            Garment garment = mGarments.get(mGarments.size()-i-1);
             garmentHolder.bind(garment);
         }
 
@@ -190,6 +201,7 @@ public class GarmentListFragment extends Fragment {
      * Updates the garment list fragment.
      */
     private void updateUI(){
+        System.out.println("Recycler List was updated....");
         GarmentLab garmentLab = GarmentLab.get(getActivity());
         List<Garment> garments = garmentLab.getGarments();
 
@@ -228,6 +240,16 @@ public class GarmentListFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.new_item:
                 Toast.makeText(getActivity(),"new item was clicked",Toast.LENGTH_SHORT).show();
+                Top top = new Top();
+                top.setBrand("Nike");
+                top.setSize(Top.TopSize.Large.toString());
+                top.setSize("THIS IS A TEST CAMERA FEATURE....");
+                top.setDescription("THIS IS A NEW OBJECT TAKENN BY THE CAMERA ");
+                top.setType(Top.TopType.Bomber.toString());
+                top.setStore("K-Mart");
+                GarmentLab.get(getActivity()).addGarment(top);
+                startCamera(top);
+
                 //Returns true to indicate no further processing is needed.
                 return true;
             default:
@@ -237,6 +259,48 @@ public class GarmentListFragment extends Fragment {
                 is not in your implementation.
                  */
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Starts up the camera app.
+     */
+    private void startCamera(Garment garment){
+        final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(garment);
+
+        Uri uri = FileProvider.getUriForFile(getActivity(),"com.android.fits.fileprovider", mPhotoFile);
+
+        captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        captureImage.putExtra(EXTRA_PHOTO_ID, garment.getId());
+
+        List<ResolveInfo> cameraActivities = getActivity()
+                .getPackageManager().queryIntentActivities(captureImage,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo activity : cameraActivities) {
+            getActivity().grantUriPermission(activity.activityInfo.packageName,
+                    uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
+        startActivityForResult(captureImage, REQUEST_PHOTO);
+    }
+    /**
+     * Allows the parent fragment to react to the child's fragment death.
+     * This function will allow the parent fragment to know and react accordingly.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        // If the result was unsuccessful then return
+        if (resultCode != Activity.RESULT_OK){
+            return;
+        }
+        if (requestCode == REQUEST_PHOTO){
+            updateUI();
+            Intent intent = GarmentActivity.newIntent(getActivity(), mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1).getId());
+            startActivity(intent);
         }
     }
 }
