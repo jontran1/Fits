@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
-import com.android.fits.Models.Pants;
-import com.android.fits.Models.Top;
 
 import java.io.File;
 import java.util.List;
@@ -306,7 +304,7 @@ public class GarmentListFragment extends Fragment {
             Intent intent = GarmentActivity.newIntent(getActivity(), mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1).getId());
             startActivity(intent);
         }else if (requestCode == REQUEST_NEW_ITEM){
-            UUID garmentId = (UUID)data.getSerializableExtra(CreateItemDialogFragment.EXTRA_ID);
+            UUID garmentId = (UUID)data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
             startCamera(GarmentLab.get(getActivity()).getGarment(garmentId));
         }
     }

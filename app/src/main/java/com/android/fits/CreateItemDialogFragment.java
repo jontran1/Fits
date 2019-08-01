@@ -3,11 +3,9 @@ package com.android.fits;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
+import com.android.fits.Models.Hat;
 import com.android.fits.Models.Pants;
 import com.android.fits.Models.Shoe;
 import com.android.fits.Models.Top;
@@ -24,7 +23,7 @@ import java.util.UUID;
 
 public class CreateItemDialogFragment extends DialogFragment {
 
-    public static final String EXTRA_ID = "com.android.fits.new_item_dialog_id";
+    public static final String EXTRA_TYPE = "com.android.fits.new_item_dialog_id";
     private Button mDialogOkButton;
     private Garment mGarment;
     RadioButton mRadioHat, mRadioTop, mRadioPants, mRadioShoes;
@@ -45,7 +44,7 @@ public class CreateItemDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (mRadioHat.isChecked()){
-                    Toast.makeText(getActivity(),"r1 clicked", Toast.LENGTH_SHORT).show();
+                    mGarment = new Hat();
                 }else if (mRadioTop.isChecked()){
                      mGarment = new Top();
                 }else if (mRadioPants.isChecked()){
@@ -76,7 +75,7 @@ public class CreateItemDialogFragment extends DialogFragment {
             return;
         }
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_ID, garmentId);
+        intent.putExtra(EXTRA_TYPE, garmentId);
 
         /**
          * getTargetRequestCode() is to set the parent's request code. So the parent
