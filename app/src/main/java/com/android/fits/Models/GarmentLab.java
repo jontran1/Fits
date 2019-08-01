@@ -3,12 +3,13 @@ package com.android.fits.Models;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class GarmentLab {
     private static GarmentLab sGarmentLab;
-    private List<Garment> mGarments;
+    private HashMap<UUID ,Garment> mGarments;
 
 
     /**
@@ -30,28 +31,27 @@ public class GarmentLab {
      * @param context
      */
     private GarmentLab (Context context){
-        mGarments = new ArrayList<>();
+        mGarments = new HashMap<UUID, Garment>();
         for (int i = 0; i < 50; i ++){
             if (i%2 == 0){
-                mGarments.add(new Top());
-                mGarments.get(i).setBrand("Nike");
-                mGarments.get(i).setColor("Black");
-                mGarments.get(i).setSize("M");
-                mGarments.get(i).setDescription("Black Jacket with black and white buttons " + i);
-                mGarments.get(i).setType("Jacket");
-                mGarments.get(i).setStore("Wal-Mark");
+                Top top = new Top();
+                mGarments.put(top.getId() ,top);
+                mGarments.get(top.getId()).setBrand("Nike");
+                mGarments.get(top.getId()).setColor("Black");
+                mGarments.get(top.getId()).setSize(Top.TopSize.Large.toString());
+                mGarments.get(top.getId()).setDescription("Black Jacket with black and white buttons " + i);
+                mGarments.get(top.getId()).setType(Top.TopType.Bomber.toString());
+                mGarments.get(top.getId()).setStore("K-Mart");
             }else {
-                mGarments.add(new Pants());
-                mGarments.get(i).setBrand("Nike");
-                mGarments.get(i).setColor("Black");
-                mGarments.get(i).setSize("M");
-                mGarments.get(i).setDescription("Navy Blue jeans with light tares " + i);
-                mGarments.get(i).setType("Chinos");
-                mGarments.get(i).setStore("Wal-Mark");
-
-
+                Pants pants = new Pants();
+                mGarments.put(pants.getId(), pants);
+                mGarments.get(pants.getId()).setBrand("Nike");
+                mGarments.get(pants.getId()).setColor("Black");
+                mGarments.get(pants.getId()).setSize(Pants.PantsSize.thirtyeight_by_thirtytwo.getName());
+                mGarments.get(pants.getId()).setDescription("Navy Blue jeans with light tares " + i);
+                mGarments.get(pants.getId()).setType("Chinos");
+                mGarments.get(pants.getId()).setStore("K-Mart");
             }
-
         }
     }
 
@@ -60,7 +60,7 @@ public class GarmentLab {
      * @return
      */
     public List<Garment> getGarments() {
-        return mGarments;
+        return new ArrayList<>(mGarments.values());
     }
 
     /**
@@ -70,11 +70,6 @@ public class GarmentLab {
      * @return
      */
     public Garment getGarment(UUID id){
-        for (Garment garment : mGarments){
-            if (garment.getId().equals(id)){
-                return garment;
-            }
-        }
-        return null;
+        return mGarments.get(id);
     }
 }

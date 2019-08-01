@@ -6,7 +6,22 @@ import java.util.List;
 public class Pants extends Garment {
 
     public static enum PantsType{
-        Jeans, Khakis, Chinos, Cargo_Pants
+        Jeans("Jean"),
+        Khakis("Khakis"),
+        Chinos("Chinos"),
+        Cargo_Pants("Cargo Pants"),
+        Other("Other");
+
+        private String name;
+
+        PantsType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
     }
 
     public static enum PantsSize {
@@ -66,7 +81,7 @@ public class Pants extends Garment {
     public List<String> getTypes(){
         List<String> types = new ArrayList<>();
         for (Pants.PantsType type : Pants.PantsType.values()){
-            types.add(type.toString());
+            types.add(type.getName());
         }
         return types;
     }

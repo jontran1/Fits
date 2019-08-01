@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -25,6 +26,7 @@ public class GarmentFragment extends Fragment {
     private EditText mDescription;
     private EditText mStore;
     private EditText mBrand;
+    private TextView mDate;
 
     private static final String ARG_GARMENT_ID = "garment_id";
     private List<String> mTypes;
@@ -85,6 +87,8 @@ public class GarmentFragment extends Fragment {
         mBrand = (EditText) v.findViewById(R.id.garment_fragment_brand);
         setBrandEditText();
 
+        mDate = (TextView) v.findViewById(R.id.garment_fragment_date);
+        mDate.setText("Date Create: " + mGarment.getDate().toString());
         return v;
     }
 
