@@ -6,11 +6,11 @@ import java.util.List;
 public class Top extends Garment {
 
     public static enum TopType{
-        Other, Bomber, Jacket, Shirt, Jean_Jacket, Flannel, Hoodie, Sweater
+        Bomber, Jacket, Shirt, Jean_Jacket, Flannel, Hoodie, Sweater
     }
 
     public static enum TopSize{
-        Other, XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
+        XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
     }
 
     public Top(){

@@ -310,12 +310,5 @@ public class GarmentListFragment extends Fragment {
             startCamera(GarmentLab.get(getActivity()).getGarment(garmentId));
         }
     }
-//
-//    public static void main(String[] args) {
-//        Garment top = new Top();
-//        Garment pants = new Pants();
-//        System.out.println(pants.getTypes());
-//
-//        System.out.println(top.getTypes());
-//    }
+
 }

@@ -51,8 +51,8 @@ public class CreateItemDialogFragment extends DialogFragment {
                     Toast.makeText(getActivity(),"r4 clicked", Toast.LENGTH_SHORT).show();
                 }
                 GarmentLab.get(getActivity()).addGarment(mGarment);
+                dismiss();
                 sendResult(Activity.RESULT_OK, mGarment.getId());
-
             }
         });
 
