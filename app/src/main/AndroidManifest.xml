@@ -19,7 +19,8 @@
         <activity android:name=".GarmentActivity">
 
         </activity>
-        <activity android:name=".GarmentPagerActivity">
+        <activity android:name=".GarmentPagerActivity"
+            android:parentActivityName=".GarmentListActivity">
 
         </activity>
     </application>

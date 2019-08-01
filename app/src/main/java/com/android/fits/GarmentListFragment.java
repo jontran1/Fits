@@ -7,9 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -49,6 +53,14 @@ public class GarmentListFragment extends Fragment {
         mGarmentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
+        /*
+        The fragment manager is responsible for calling
+        Fragment.onCreateOptionsMen(...) when the activity receives its
+        onCreateOptionsMenu(...) callback from the OS. You must
+        explicitly tell the FragmentManager that your fragment should
+        receive a call to onCreateOptionsMenu(...).
+         */
+        setHasOptionsMenu(true);
         return view;
 
     }
@@ -117,8 +129,8 @@ public class GarmentListFragment extends Fragment {
         public void bind(Garment garment){
             mGarment = garment;
             mTypeView.setText(mGarment.getType());
-            mSizeView.setText(mGarment.getSize());
-            mDateView.setText(mGarment.getDate().toString());
+            mSizeView.setText("Size: " + mGarment.getSize());
+            mDateView.setText("Date Created: " + mGarment.getDate().toString());
         }
 
     }
@@ -183,5 +195,48 @@ public class GarmentListFragment extends Fragment {
 
         mGarmentAdapter = new GarmentAdapter(garments);
         mGarmentRecyclerView.setAdapter(mGarmentAdapter);
+    }
+
+    /**
+     * Menus are managed by callbacks from the Activity class.
+     * When the menu is needed Android calls the Activity method
+     * onCreateOptionsMenu(Menu), However for the fragment. It comes
+     * with its own set of menu callbacks.
+     *
+     * This method is for creating the menu and responding to the
+     * the selection of an action item.
+     * @param menu
+     * @param inflater
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        /*
+        Passing the res Id of the menu file. This populates the Menu
+        instance with the items defined in your file.
+         */
+        inflater.inflate(R.menu.fragment_garment_list, menu);
+    }
+
+    /**
+     * Handles the menu item actions.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.new_item:
+                Toast.makeText(getActivity(),"new item was clicked",Toast.LENGTH_SHORT).show();
+                //Returns true to indicate no further processing is needed.
+                return true;
+            default:
+                /*
+                The default case calls the
+                superclass implementation if the item ID
+                is not in your implementation.
+                 */
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

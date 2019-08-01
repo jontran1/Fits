@@ -72,4 +72,12 @@ public class GarmentLab {
     public Garment getGarment(UUID id){
         return mGarments.get(id);
     }
+
+    /**
+     * Add garment item to hash map.
+     * @param garment
+     */
+    public void addGarment(Garment garment){
+        mGarments.put(garment.getId(), garment);
+    }
 }
