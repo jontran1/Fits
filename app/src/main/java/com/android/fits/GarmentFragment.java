@@ -97,11 +97,13 @@ public class GarmentFragment extends Fragment {
         mDate.setText("Date Create: " + mGarment.getDate().toString());
 
         mImageView = (ImageView)v.findViewById(R.id.garment_fragment_photo);
+        setImageView();
         return v;
     }
 
     private void setImageView(){
         mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(mGarment);
+        mImageView.setImageBitmap(PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity()));
     }
 
     /**

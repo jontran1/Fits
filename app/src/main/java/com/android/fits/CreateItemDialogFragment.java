@@ -3,9 +3,11 @@ package com.android.fits;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
 import com.android.fits.Models.Pants;
+import com.android.fits.Models.Shoe;
 import com.android.fits.Models.Top;
 
 import java.util.UUID;
@@ -48,7 +51,7 @@ public class CreateItemDialogFragment extends DialogFragment {
                 }else if (mRadioPants.isChecked()){
                      mGarment = new Pants();
                 }else if (mRadioShoes.isChecked()){
-                    Toast.makeText(getActivity(),"r4 clicked", Toast.LENGTH_SHORT).show();
+                    mGarment = new Shoe();
                 }
                 GarmentLab.get(getActivity()).addGarment(mGarment);
                 dismiss();
