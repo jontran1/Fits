@@ -306,12 +306,8 @@ public class GarmentListFragment extends Fragment {
             Intent intent = GarmentActivity.newIntent(getActivity(), mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1).getId());
             startActivity(intent);
         }else if (requestCode == REQUEST_NEW_ITEM){
-
             UUID garmentId = (UUID)data.getSerializableExtra(CreateItemDialogFragment.EXTRA_ID);
-            System.out.println(" inside result of parent fragment " +garmentId);
-            Intent intent = GarmentActivity.newIntent(getActivity(), garmentId);
-            startActivity(intent);
-
+            startCamera(GarmentLab.get(getActivity()).getGarment(garmentId));
         }
     }
 //
