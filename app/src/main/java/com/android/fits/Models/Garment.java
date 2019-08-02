@@ -41,7 +41,7 @@ public abstract class Garment {
                 break;
             case Pants:
                 garment = new Pants();
-                garment.setSize(Pants.PantsSize.thirty_by_thirty.toString());
+                garment.setSize(Pants.PantsSize.thirty_by_thirty.getName());
                 garment.setType(Pants.PantsType.Jeans.toString());
                 break;
             default :

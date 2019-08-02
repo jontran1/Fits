@@ -334,25 +334,27 @@ public class GarmentListFragment extends Fragment {
         }
 
         if (requestCode == REQUEST_PHOTO){
-            Uri uri = FileProvider.getUriForFile(getActivity(),
-                    "com.android.fits.fileprovider",
-                    mPhotoFile);
-
-            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
-            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
-            startActivity(intent);
-
+//            Uri uri = FileProvider.getUriForFile(getActivity(),
+//                    "com.android.fits.fileprovider",
+//                    mPhotoFile);
+//
+//            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//
+//            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
+//            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
+//            startActivity(intent);
+//
 
 
         }else if (requestCode == REQUEST_NEW_ITEM){
             Type type = (Type) data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
             Garment newGarment = Garment.createGarment(type);
             GarmentLab.get(getActivity()).addGarment(newGarment);
-
+            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newGarment.getId());
+            startActivity(intent);
+//            mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(newGarment);
             updateUI();
-            startCamera(newGarment);
+//            startCamera(newGarment);
         }
     }
 
