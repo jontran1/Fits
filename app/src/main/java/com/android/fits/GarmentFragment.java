@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,10 +125,10 @@ public class GarmentFragment extends Fragment {
 
         mImageButton.setOnClickListener(new View.OnClickListener() {
             /**
-             * Uses the camera feature to take a photo of the crime.
+             * Uses the camera feature to take a photo of the garment.
              * Starts a hold new activity for the camera, once that activity dies
-             * the result function in CrimeFragment.java is called and determines
-             * what happens.
+             * the result function in GarmentFragment.java is called and determines
+             * what happens next.
              *
              * @param v
              */
