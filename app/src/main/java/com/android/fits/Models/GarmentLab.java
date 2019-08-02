@@ -36,25 +36,6 @@ public class GarmentLab {
     private GarmentLab (Context context){
         this.mContext = context;
         mGarments = new LinkedHashMap<>();
-//        for (int i = 0; i < 10; i ++){
-//            if (i%2 == 0){
-//                Top top = new Top();
-//                mGarments.put(top.getId() ,top);
-//                mGarments.get(top.getId()).setBrand("Nike");
-//                mGarments.get(top.getId()).setSize(Top.TopSize.Large.toString());
-//                mGarments.get(top.getId()).setDescription("Black Jacket with black and white buttons " + i);
-//                mGarments.get(top.getId()).setType(Top.TopType.Bomber.toString());
-//                mGarments.get(top.getId()).setStore("K-Mart");
-//            }else {
-//                Pants pants = new Pants();
-//                mGarments.put(pants.getId(), pants);
-//                mGarments.get(pants.getId()).setBrand("Nike");
-//                mGarments.get(pants.getId()).setSize(Pants.PantsSize.thirtyeight_by_thirtytwo.getName());
-//                mGarments.get(pants.getId()).setDescription("Navy Blue jeans with light tares " + i);
-//                mGarments.get(pants.getId()).setType("Chinos");
-//                mGarments.get(pants.getId()).setStore("K-Mart");
-//            }
-//        }
     }
 
     /**

@@ -59,6 +59,8 @@ public class GarmentFragment extends Fragment {
         super.onCreate(saveInstanceState);
         UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
         mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
+        mTypes = mGarment.getTypes();
+        mSizes = mGarment.getSizes();
         mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(mGarment);
     }
 
@@ -88,8 +90,6 @@ public class GarmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_garment, container, false);
 
-        mTypes = mGarment.getTypes();
-        mSizes = mGarment.getSizes();
         mSpinnerTypes = (Spinner)v.findViewById(R.id.garment_fragment_type);
         setSpinnerType();
         mSpinnerSizes = (Spinner)v.findViewById(R.id.garment_fragment_size);
@@ -117,8 +117,8 @@ public class GarmentFragment extends Fragment {
     private void setImageView(){
         PackageManager packageManager = getActivity().getPackageManager();
 
-        mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(mGarment);
         mImageView.setImageBitmap(PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity()));
+
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         boolean canTakePhoto = mPhotoFile != null && captureImage.resolveActivity(packageManager) != null;
         mImageButton.setEnabled(canTakePhoto);
@@ -287,13 +287,14 @@ public class GarmentFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+        System.out.println("LOOK HERE: requestCode " + requestCode + " " + "resultcode" + requestCode);
         if (resultCode != Activity.RESULT_OK){
             return;
         }
 
         if (requestCode == REQUEST_PHOTO){
             Uri uri = FileProvider.getUriForFile(getActivity(),
-                    "com.bignerdranch.android.criminalintent.fileprovider",
+                    "com.android.fits.fileprovider",
                     mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 

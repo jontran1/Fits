@@ -39,9 +39,10 @@ public class GarmentListFragment extends Fragment {
 
     // Uniquely identifies the DialogFragment in FragmentManager's list.
     private static final String DIALOG_NEW_ITEM = "NewItemDialog";
+    private File mPhotoFile;
 
-    private static final int REQUEST_PHOTO = 0;
     private static final int REQUEST_NEW_ITEM = 1;
+    private static final int REQUEST_PHOTO = 2;
 
     /**
      * Sets up the view for GarmentListFragment.
@@ -60,6 +61,7 @@ public class GarmentListFragment extends Fragment {
 
         mGarmentRecyclerView = (RecyclerView) view.
                 findViewById(R.id.garment_recycler_view);
+
 
         /*
         Note that as soon you create your recyclerView you give it another
@@ -297,12 +299,12 @@ public class GarmentListFragment extends Fragment {
     }
 
     /**
-     * Starts up the camera app.
+     * Starts up the camera app. Once the garment is created it is added to the list.
      */
     public void startCamera(Garment garment){
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(garment);
 
-        File mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(garment);
 
         Uri uri = FileProvider.getUriForFile(getActivity(),"com.android.fits.fileprovider", mPhotoFile);
 
@@ -330,17 +332,28 @@ public class GarmentListFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK){
             return;
         }
+
         if (requestCode == REQUEST_PHOTO){
+            Uri uri = FileProvider.getUriForFile(getActivity(),
+                    "com.android.fits.fileprovider",
+                    mPhotoFile);
+
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
             Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
-            Intent intent = GarmentActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
+            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
             startActivity(intent);
+
+
+
         }else if (requestCode == REQUEST_NEW_ITEM){
             Type type = (Type) data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
             Garment newGarment = Garment.createGarment(type);
             GarmentLab.get(getActivity()).addGarment(newGarment);
+
+            updateUI();
             startCamera(newGarment);
         }
-        updateUI();
     }
 
 }
