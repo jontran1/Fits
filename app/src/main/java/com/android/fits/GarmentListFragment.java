@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.android.fits.TypeUtil.Type;
 public class GarmentListFragment extends Fragment {
     private RecyclerView mGarmentRecyclerView;
     private GarmentAdapter mGarmentAdapter;
+    private boolean mSubtitleVisible;
 
     // Uniquely identifies the DialogFragment in FragmentManager's list.
     private static final String DIALOG_NEW_ITEM = "NewItemDialog";
@@ -212,6 +214,8 @@ public class GarmentListFragment extends Fragment {
 
         mGarmentAdapter = new GarmentAdapter(garments);
         mGarmentRecyclerView.setAdapter(mGarmentAdapter);
+
+        updateSubtitle();
     }
 
     /**
@@ -233,6 +237,12 @@ public class GarmentListFragment extends Fragment {
         instance with the items defined in your file.
          */
         inflater.inflate(R.menu.fragment_garment_list, menu);
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+        if (mSubtitleVisible){
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        }else
+            subtitleItem.setTitle(R.string.show_subtitle);
+
     }
 
     /**
@@ -249,6 +259,12 @@ public class GarmentListFragment extends Fragment {
 
                 //Returns true to indicate no further processing is needed.
                 return true;
+
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
             default:
                 /*
                 The default case calls the
@@ -259,6 +275,20 @@ public class GarmentListFragment extends Fragment {
         }
     }
 
+    private void updateSubtitle(){
+        GarmentLab garmentLab = GarmentLab.get(getActivity());
+        int garmentCount = garmentLab.getSize();
+        String subtitle = getString(R.string.subtitle_format, garmentCount);
+        if (!mSubtitleVisible){
+            subtitle = null;
+        }
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
+    }
+
+    /**
+     * Starts the new item dialog fragment.
+     */
     private void startItemCreationDialog(){
         FragmentManager manager = getFragmentManager();
         CreateItemDialogFragment dialog = new CreateItemDialogFragment();

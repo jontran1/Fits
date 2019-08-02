@@ -83,6 +83,10 @@ public class GarmentLab {
         mGarments.put(garment.getId(), garment);
     }
 
+    public int getSize(){
+        return mGarments.size();
+    }
+
     /**
      * GarmentLab is responsible for everything related to
      * persisting data. This method provides a complete local filepath
