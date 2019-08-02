@@ -14,16 +14,13 @@ import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
-import com.android.fits.Models.Hat;
-import com.android.fits.Models.Pants;
-import com.android.fits.Models.Shoe;
-import com.android.fits.Models.Top;
 
-import java.util.UUID;
+import com.android.fits.TypeUtil.Type;
 
 public class CreateItemDialogFragment extends DialogFragment {
 
     public static final String EXTRA_TYPE = "com.android.fits.new_item_dialog_id";
+    private TypeUtil.Type mType;
     private Button mDialogOkButton;
     private Garment mGarment;
     RadioButton mRadioHat, mRadioTop, mRadioPants, mRadioShoes;
@@ -44,23 +41,22 @@ public class CreateItemDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (mRadioHat.isChecked()){
-                    mGarment = new Hat();
+                    mType = Type.Hats;
                 }else if (mRadioTop.isChecked()){
-                     mGarment = new Top();
+                    mType = Type.Top;
                 }else if (mRadioPants.isChecked()){
-                     mGarment = new Pants();
+                    mType = Type.Pants;
                 }else if (mRadioShoes.isChecked()){
-                    mGarment = new Shoe();
+                    mType = Type.Shoes;
                 }
-                GarmentLab.get(getActivity()).addGarment(mGarment);
                 dismiss();
-                sendResult(Activity.RESULT_OK, mGarment.getId());
+                sendResult(Activity.RESULT_OK, mType);
             }
         });
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Select Item Type:")
+                .setTitle(R.string.new_item_dialog_title)
                 .create();
     }
 
@@ -68,14 +64,14 @@ public class CreateItemDialogFragment extends DialogFragment {
      * Sets the result extra with the newly created garmentId.
      * Then this functions calls the parent fragment's onActivityResult function.
      * @param resultCode
-     * @param garmentId
+     * @param type
      */
-    private void sendResult(int resultCode, UUID garmentId){
+    private void sendResult(int resultCode, Type type){
         if (getTargetFragment() == null){
             return;
         }
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_TYPE, garmentId);
+        intent.putExtra(EXTRA_TYPE, type);
 
         /**
          * getTargetRequestCode() is to set the parent's request code. So the parent

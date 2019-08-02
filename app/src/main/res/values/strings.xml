@@ -13,6 +13,7 @@
     <string name="radio_tops">Tops</string>
     <string name="radio_pants">Pants</string>
     <string name="radio_shoes">Shoes</string>
+    <string name="new_item_dialog_title">Select Type:</string>
 
     <string name="new_garment">New Item</string>
     <string name="show_subtitle">Show Subtitle</string>

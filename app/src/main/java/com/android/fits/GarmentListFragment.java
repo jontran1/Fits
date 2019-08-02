@@ -27,7 +27,9 @@ import com.android.fits.Models.GarmentLab;
 
 import java.io.File;
 import java.util.List;
-import java.util.UUID;
+
+import com.android.fits.TypeUtil.Type;
+
 
 public class GarmentListFragment extends Fragment {
     private RecyclerView mGarmentRecyclerView;
@@ -143,7 +145,7 @@ public class GarmentListFragment extends Fragment {
         public void bind(Garment garment){
             mGarment = garment;
             mTypeView.setText(mGarment.getType());
-            mSizeView.setText("Size: " + mGarment.getSize());
+            mSizeView.setText(mGarment.getSize());
             mDateView.setText("Date Created: " + mGarment.getDate().toString());
         }
 
@@ -299,13 +301,16 @@ public class GarmentListFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_PHOTO){
-            updateUI();
-            Intent intent = GarmentActivity.newIntent(getActivity(), mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1).getId());
+            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
+            Intent intent = GarmentActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
             startActivity(intent);
         }else if (requestCode == REQUEST_NEW_ITEM){
-            UUID garmentId = (UUID)data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
-            startCamera(GarmentLab.get(getActivity()).getGarment(garmentId));
+            Type type = (Type) data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
+            Garment newGarment = Garment.createGarment(type);
+            GarmentLab.get(getActivity()).addGarment(newGarment);
+            startCamera(newGarment);
         }
+        updateUI();
     }
 
 }

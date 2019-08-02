@@ -1,9 +1,11 @@
 package com.android.fits.Models;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import com.android.fits.TypeUtil.Type;
+
 
 public abstract class Garment {
 
@@ -22,6 +24,32 @@ public abstract class Garment {
     public Garment(){
         mId = UUID.randomUUID();
         mDate = new Date();
+    }
+
+    public static Garment createGarment(Type type){
+        Garment garment;
+        switch (type){
+            case Hats:
+                garment = new Hat();
+                garment.setSize(Hat.HatSize.Size_1.toString());
+                garment.setType(Hat.HatType.Dad_Hat.toString());
+                break;
+            case Top:
+                garment = new Top();
+                garment.setSize(Top.TopSize.XSmall.toString());
+                garment.setType(Top.TopType.Shirt.toString());
+                break;
+            case Pants:
+                garment = new Pants();
+                garment.setSize(Pants.PantsSize.thirty_by_thirty.toString());
+                garment.setType(Pants.PantsType.Jeans.toString());
+                break;
+            default :
+                garment = new Shoe();
+                garment.setSize(Shoe.ShoeSize.Size_1.toString());
+                garment.setType(Shoe.ShoeType.Sneakers.toString());
+        }
+        return garment;
     }
 
     public abstract List<String> getSizes();
