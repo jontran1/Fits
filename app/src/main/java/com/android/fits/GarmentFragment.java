@@ -16,6 +16,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -126,7 +129,54 @@ public class GarmentFragment extends Fragment {
         mImageButton = (ImageButton)v.findViewById(R.id.garment_fragment_camera_button);
         setImageView();
 
+        setHasOptionsMenu(true);
+
+
         return v;
+    }
+
+    /**
+     * Menus are managed by callbacks from the Activity class.
+     * When the menu is needed Android calls the Activity method
+     * onCreateOptionsMenu(Menu), However for the fragment. It comes
+     * with its own set of menu callbacks.
+     *
+     * This method is for creating the menu and responding to the
+     * the selection of an action item.
+     * @param menu
+     * @param inflater
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        /*
+        Passing the res Id of the menu file. This populates the Menu
+        instance with the items defined in your file.
+         */
+        inflater.inflate(R.menu.fragment_garment, menu);
+
+    }
+
+    /**
+     * Handles the menu item actions.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.remove_item:
+                GarmentLab.get(getActivity()).removeGarment(mGarment);
+                getActivity().finish();
+                return true;
+            default:
+                /*
+                The default case calls the
+                superclass implementation if the item ID
+                is not in your implementation.
+                 */
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setImageView(){

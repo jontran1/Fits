@@ -255,9 +255,7 @@ public class GarmentListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_item:
-                Toast.makeText(getActivity(),"new item was clicked",Toast.LENGTH_SHORT).show();
                 startItemCreationDialog();
-
                 //Returns true to indicate no further processing is needed.
                 return true;
 

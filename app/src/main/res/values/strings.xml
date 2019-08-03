@@ -19,6 +19,7 @@
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$d items</string>
+    <string name="remove_garment">Remove Item</string>
 
     <string name="list_item_date_created">Date Created:\u0020</string>
     <string name="list_item_size">Size:\u0020</string>

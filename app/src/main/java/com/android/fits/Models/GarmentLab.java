@@ -104,6 +104,14 @@ public class GarmentLab {
     }
 
     /**
+     * Removes garment instance out of database.
+     * @param garment
+     */
+    public void removeGarment(Garment garment){
+        mDatabase.delete(GarmentTable.NAME, GarmentTable.Cols.UUID + " = ? ", new String[]{garment.getId().toString()});
+    }
+
+    /**
      * Updates the crime in the database.
      * @param garment
      */
