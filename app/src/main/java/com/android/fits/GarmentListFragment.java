@@ -148,8 +148,8 @@ public class GarmentListFragment extends Fragment {
         public void bind(Garment garment){
             mGarment = garment;
             mTypeView.setText(mGarment.getType());
-            mSizeView.setText(mGarment.getSize());
-            mDateView.setText("Date Created: " + mGarment.getDate().toString());
+            mSizeView.setText(getString(R.string.list_item_size) + mGarment.getSize());
+            mDateView.setText(getString(R.string.list_item_date_created) + mGarment.getDate().toString());
         }
 
     }
