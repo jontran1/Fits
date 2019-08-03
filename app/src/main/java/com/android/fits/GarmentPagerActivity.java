@@ -43,15 +43,17 @@ public class GarmentPagerActivity extends AppCompatActivity {
 
         mGarments = GarmentLab.get(this).getGarments();
         mViewPager = (ViewPager) findViewById(R.id.garment_view_paper);
-        UUID garmentId;
-        if (savedInstanceState != null){
-            garmentId = (UUID) savedInstanceState.getSerializable(EXTRA_GARMENT_ID);
-            Log.i(TAG, "savedInstanceState isn't null  " + garmentId.toString());
-        }else {
-            garmentId = (UUID) getIntent().getSerializableExtra(EXTRA_GARMENT_ID);
-        }
 
+//        UUID garmentId;
+//        if (savedInstanceState != null){
+//            garmentId = (UUID) savedInstanceState.getSerializable(EXTRA_GARMENT_ID);
+//            Log.i(TAG, "savedInstanceState isn't null  " + garmentId.toString());
+//        }else {
+//            garmentId = (UUID) getIntent().getSerializableExtra(EXTRA_GARMENT_ID);
+//        }
+        UUID garmentId = (UUID) getIntent().getSerializableExtra(EXTRA_GARMENT_ID);
         FragmentManager fragmentManager = getSupportFragmentManager();
+
 
         //Remember that FragmentStatePagerAdapter is your agent managing the conversation
         //with ViewPager. For your agent to do its job with the fragment that getItem(int)
@@ -92,10 +94,10 @@ public class GarmentPagerActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable(EXTRA_GARMENT_ID, getIntent().getSerializableExtra(EXTRA_GARMENT_ID));
-        UUID garmentId = (UUID) savedInstanceState.getSerializable(EXTRA_GARMENT_ID);
-        System.out.println("savedInstanceState isn't null " + garmentId.toString());
-        Log.i(TAG, "onSaveInstanceState " + garmentId.toString());
+//        savedInstanceState.putSerializable(EXTRA_GARMENT_ID, getIntent().getSerializableExtra(EXTRA_GARMENT_ID));
+//        UUID garmentId = (UUID) savedInstanceState.getSerializable(EXTRA_GARMENT_ID);
+//        System.out.println("savedInstanceState isn't null " + garmentId.toString());
+//        Log.i(TAG, "onSaveInstanceState " + garmentId.toString());
     }
 
     @Override

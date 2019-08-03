@@ -7,18 +7,18 @@ import java.util.List;
 import java.util.UUID;
 
 public class Shoes extends Garment {
-    public static enum ShoeType{
+    public enum ShoeType{
         Sneakers, Running_Shoes, Dress_Shoes,
     }
 
-    public static enum ShoeSize{
+    public enum ShoeSize{
         Size_1, Size_2, Size_3, Size_4
     }
 
-    public Shoes(){
+    protected Shoes(){
         super();
     }
-    public Shoes(UUID id){
+    protected Shoes(UUID id){
         super(id);
     }
 

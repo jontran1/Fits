@@ -8,19 +8,19 @@ import java.util.UUID;
 
 public class Hat extends Garment {
 
-    public static enum HatType{
+    public enum HatType{
         Dad_Hat, Snap_Back, Beanie
     }
 
-    public static enum HatSize{
+    public enum HatSize{
         Size_1, Size_2, Size_3, Size_4
     }
 
-    public Hat(){
+    protected Hat(){
         super();
     }
 
-    public Hat(UUID id){
+    protected Hat(UUID id){
         super(id);
     }
 

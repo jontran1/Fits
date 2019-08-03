@@ -18,58 +18,60 @@ public abstract class Garment {
 
 
 
-    public Garment(){
+    protected Garment(){
         mId = UUID.randomUUID();
         mDate = new Date();
     }
 
-    public Garment(UUID id){
+    protected Garment(UUID id){
         mId = id;
     }
 
-    public static Garment createNewGarmentFromDataBase(Type garmentType, String type,  UUID id){
+    /**
+     * Creates a new garment object from the database. That is because
+     * when creating an object from the database we need to set the
+     * UUID id member variable.
+     * @param garmentType
+     * @param id
+     * @return
+     */
+    public static Garment createNewGarmentFromDataBase(Type garmentType,  UUID id){
         Garment garment;
         switch (garmentType){
             case Hats:
                 garment = new Hat(id);
-                garment.setType((type).toString());
                 break;
             case Top:
                 garment = new Top(id);
-                garment.setType((type).toString());
-
                 break;
             case Pants:
                 garment = new Pants(id);
-                garment.setType((type).toString());
-
                 break;
             default :
                 garment = new Shoes(id);
-                garment.setType((type).toString());
-
         }
         return garment;
     }
 
+    /**
+     * When a new garment is created in memory.
+     * @param type
+     * @return
+     */
     public static Garment createNewGarment(Type type){
         Garment garment;
         switch (type){
             case Hats:
                 garment = new Hat();
-                garment.setType(Hat.HatType.Dad_Hat.toString());
                 break;
             case Top:
                 garment = new Top();
-                garment.setType(Top.TopType.Shirt.toString());
                 break;
             case Pants:
                 garment = new Pants();
-                garment.setType(Pants.PantsType.Jeans.toString());
                 break;
             default :
                 garment = new Shoes();
-                garment.setType(Shoes.ShoeType.Sneakers.toString());
         }
         return garment;
     }

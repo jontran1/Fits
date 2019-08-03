@@ -346,10 +346,7 @@ public class GarmentFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable(ARG_GARMENT_ID, getArguments().getSerializable(ARG_GARMENT_ID));
-        UUID garmentId = (UUID) savedInstanceState.getSerializable(ARG_GARMENT_ID);
-        System.out.println("savedInstanceState isn't null " + garmentId.toString());
-        Log.i(TAG, "onSaveInstanceState " + garmentId.toString());
+        savedInstanceState.putSerializable(ARG_GARMENT_ID, mGarment.getId());
     }
 
     @Override

@@ -42,15 +42,29 @@ public class CreateItemDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 if (mRadioHat.isChecked()){
                     mType = Type.Hats;
+                    dismiss();
+                    sendResult(Activity.RESULT_OK, mType);
                 }else if (mRadioTop.isChecked()){
                     mType = Type.Top;
+                    dismiss();
+                    sendResult(Activity.RESULT_OK, mType);
+
                 }else if (mRadioPants.isChecked()){
                     mType = Type.Pants;
+                    dismiss();
+                    sendResult(Activity.RESULT_OK, mType);
+
                 }else if (mRadioShoes.isChecked()){
                     mType = Type.Shoes;
+                    dismiss();
+                    sendResult(Activity.RESULT_OK, mType);
+
+                }else {
+                    // If the user doesn't select an option.
+                    dismiss();
+                    sendResult(Activity.RESULT_CANCELED);
                 }
-                dismiss();
-                sendResult(Activity.RESULT_OK, mType);
+
             }
         });
 
@@ -80,6 +94,22 @@ public class CreateItemDialogFragment extends DialogFragment {
          * Intent contains information for the parent.
          */
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+    }
+
+    private void sendResult(int resultCode){
+        if (getTargetFragment() == null){
+            return;
+        }
+        Intent intent = new Intent();
+
+        /**
+         * getTargetRequestCode() is to set the parent's request code. So the parent
+         * knows that this fragment is their child.
+         * ResultCode is RESULT_OK to show the parent it was done correctly.
+         * Intent contains information for the parent.
+         */
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+
     }
 
 

@@ -8,18 +8,18 @@ import java.util.UUID;
 
 public class Top extends Garment {
 
-    public static enum TopType{
+    public enum TopType{
         Bomber, Jacket, Shirt, Jean_Jacket, Flannel, Hoodie, Sweater
     }
 
-    public static enum TopSize{
+    public enum TopSize{
         XSmall, Small, Medium, Large, XLarge, XXLarge, XXXLarge
     }
 
-    public Top(){
+    protected Top(){
         super();
     }
-    public Top(UUID id){
+    protected Top(UUID id){
         super(id);
     }
 

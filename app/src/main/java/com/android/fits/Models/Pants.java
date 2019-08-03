@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Pants extends Garment {
 
-    public static enum PantsType{
+    public enum PantsType{
         Jeans("Jeans"),
         Khakis("Khakis"),
         Chinos("Chinos"),
@@ -27,15 +27,7 @@ public class Pants extends Garment {
 
     }
 
-    public static void main(String[] args) {
-//        System.out.println(PantsType.valueOf("Cargo Pants"));
-//        System.out.println(PantsType.Cargo_Pants.getName());
-//
-//        System.out.println(PantsSize.valueOf("30x30"));
-//        System.out.println(PantsSize.thirtyeight_by_thirtysix.getName());
-    }
-
-    public static enum PantsSize {
+    public enum PantsSize {
         thirty_by_thirty("30x30"),
         thirty_by_thirtytwo("30x32"),
         thirtytwo_by_thirty("32x30"),
@@ -66,10 +58,10 @@ public class Pants extends Garment {
             return this.name;
         }
     }
-    public Pants(){
+    protected Pants(){
         super();
     }
-    public Pants(UUID id){
+    protected Pants(UUID id){
         super(id);
     }
 
