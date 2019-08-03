@@ -27,26 +27,26 @@ public abstract class Garment {
         mId = id;
     }
 
-    public static Garment createNewGarmentFromDataBase(Type type, UUID id){
+    public static Garment createNewGarmentFromDataBase(Type garmentType, String type,  UUID id){
         Garment garment;
-        switch (type){
+        switch (garmentType){
             case Hats:
                 garment = new Hat(id);
-                garment.setType(Hat.HatType.Dad_Hat.toString());
+                garment.setType((type).toString());
                 break;
             case Top:
                 garment = new Top(id);
-                garment.setType(Top.TopType.Shirt.toString());
+                garment.setType((type).toString());
 
                 break;
             case Pants:
                 garment = new Pants(id);
-                garment.setType(Pants.PantsType.Jeans.toString());
+                garment.setType((type).toString());
 
                 break;
             default :
                 garment = new Shoes(id);
-                garment.setType(Shoes.ShoeType.Dress_Shoes.toString());
+                garment.setType((type).toString());
 
         }
         return garment;

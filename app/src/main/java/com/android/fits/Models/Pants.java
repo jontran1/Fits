@@ -9,10 +9,11 @@ import java.util.UUID;
 public class Pants extends Garment {
 
     public static enum PantsType{
-        Jeans("Jean"),
+        Jeans("Jeans"),
         Khakis("Khakis"),
         Chinos("Chinos"),
-        Cargo_Pants("Cargo Pants");
+        Cargo_Pants("Cargo Pants"),
+        BasketBall_Shorts("Basketball Shorts");
 
         private String name;
 
@@ -24,6 +25,14 @@ public class Pants extends Garment {
             return this.name;
         }
 
+    }
+
+    public static void main(String[] args) {
+//        System.out.println(PantsType.valueOf("Cargo Pants"));
+//        System.out.println(PantsType.Cargo_Pants.getName());
+//
+//        System.out.println(PantsSize.valueOf("30x30"));
+//        System.out.println(PantsSize.thirtyeight_by_thirtysix.getName());
     }
 
     public static enum PantsSize {

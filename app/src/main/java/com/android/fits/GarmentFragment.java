@@ -270,6 +270,7 @@ public class GarmentFragment extends Fragment {
     private void setSpinnerSizes(){
         ArrayAdapter<String> adapterSizes = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item, mSizes);
         mSpinnerSizes.setAdapter(adapterSizes);
+
         mSpinnerSizes.setSelection(mSizes.indexOf(mGarment.getSize()));
 
         mSpinnerSizes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

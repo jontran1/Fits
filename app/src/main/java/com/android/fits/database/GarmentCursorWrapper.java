@@ -30,11 +30,10 @@ public class GarmentCursorWrapper extends CursorWrapper {
         String type = getString(getColumnIndex(GarmentTable.Cols.TYPE));
         String garmentType = getString(getColumnIndex(GarmentTable.Cols.GARMENT_TYPE));
 
-        Garment garment = Garment.createNewGarmentFromDataBase(TypeUtil.Type.valueOf(garmentType), UUID.fromString(uuidString));
+        Garment garment = Garment.createNewGarmentFromDataBase(TypeUtil.Type.valueOf(garmentType), type, UUID.fromString(uuidString));
         garment.setDescription(description);
         garment.setSize(size);
         garment.setDate(new Date(date));
-        garment.setType(type);
 
         return garment;
     }

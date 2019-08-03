@@ -14,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,17 +34,26 @@ import com.android.fits.TypeUtil.Type;
 
 
 public class GarmentListFragment extends Fragment {
+    private static final String TAG = "GarmentListFragment";
     private RecyclerView mGarmentRecyclerView;
     private GarmentAdapter mGarmentAdapter;
     private boolean mSubtitleVisible;
 
     // Uniquely identifies the DialogFragment in FragmentManager's list.
     private static final String DIALOG_NEW_ITEM = "NewItemDialog";
-    private File mPhotoFile;
+    private static final String NEW_ITEM_PHOTO = "Newly_Created_Garment_Photo";
+    private File mNewLyCreatedPhotoFile;
 
     private static final int REQUEST_NEW_ITEM = 1;
     private static final int REQUEST_PHOTO = 2;
 
+    @Override
+    public void onCreate(Bundle saveInstanceState){
+        super.onCreate(saveInstanceState);
+        if (saveInstanceState != null){
+            mNewLyCreatedPhotoFile = new File(saveInstanceState.getString(NEW_ITEM_PHOTO));
+        }
+    }
     /**
      * Sets up the view for GarmentListFragment.
      * @param inflater
@@ -86,17 +96,6 @@ public class GarmentListFragment extends Fragment {
 
     }
 
-    /**
-     * The garment fragment is pushed on the stack but
-     * once the user backs out and that fragment is popped
-     * off the stack. The fragment list needs to update
-     * whatever changes the user made to the model.
-     */
-    @Override
-    public void onResume(){
-        super.onResume();
-        updateUI();
-    }
 
     /**
      * Steps
@@ -303,10 +302,10 @@ public class GarmentListFragment extends Fragment {
      */
     public void startCamera(Garment garment){
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(garment);
+        mNewLyCreatedPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(garment);
 
 
-        Uri uri = FileProvider.getUriForFile(getActivity(),"com.android.fits.fileprovider", mPhotoFile);
+        Uri uri = FileProvider.getUriForFile(getActivity(),"com.android.fits.fileprovider", mNewLyCreatedPhotoFile);
 
         captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
@@ -334,29 +333,81 @@ public class GarmentListFragment extends Fragment {
         }
 
         if (requestCode == REQUEST_PHOTO){
-//            Uri uri = FileProvider.getUriForFile(getActivity(),
-//                    "com.android.fits.fileprovider",
-//                    mPhotoFile);
-//
-//            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//
-//            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
-//            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
-//            startActivity(intent);
-//
+
+            Uri uri = FileProvider.getUriForFile(getActivity(),
+                    "com.android.fits.fileprovider",
+                    mNewLyCreatedPhotoFile);
+
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
+            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
+            startActivity(intent);
+
 
 
         }else if (requestCode == REQUEST_NEW_ITEM){
             Type type = (Type) data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
             Garment newGarment = Garment.createNewGarment(type);
             GarmentLab.get(getActivity()).addGarment(newGarment);
-            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newGarment.getId());
-
-            startActivity(intent);
-//            mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(newGarment);
+//            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newGarment.getId());
+//
+//            startActivity(intent);
+            mNewLyCreatedPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(newGarment);
             updateUI();
-//            startCamera(newGarment);
+            startCamera(newGarment);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        /**
+         * When the user opens the GarmentFragment this Fragment will call onSaveInstanceState()
+         * but there will be no newlyCreatePhoto. This if statement will check for that.
+         */
+        if (mNewLyCreatedPhotoFile != null){
+            savedInstanceState.putSerializable(NEW_ITEM_PHOTO, mNewLyCreatedPhotoFile.toString());
+        }
+        Log.i(TAG, "onSaveInstanceState() called");
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG,"onStart() called");
+    }
+
+    /**
+     * The garment fragment is pushed on the stack but
+     * once the user backs out and that fragment is popped
+     * off the stack. The fragment list needs to update
+     * whatever changes the user made to the model.
+     */
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG,"onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG,"onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG,"onDestroy() called");
+    }
+
+
 
 }
