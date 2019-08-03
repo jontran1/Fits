@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,6 +54,11 @@ public class GarmentFragment extends Fragment {
     private List<String> mSizes;
 
     private static final int REQUEST_PHOTO = 2;
+
+    // Uniquely identifies the DialogFragment in FragmentManager's list.
+    private static final String DIALOG_PHOTO = "dialog_photo";
+
+
 
     /**
      * An activity life cycle method. Its public because it
@@ -117,8 +124,8 @@ public class GarmentFragment extends Fragment {
 
         mImageView = (ImageView)v.findViewById(R.id.garment_fragment_photo);
         mImageButton = (ImageButton)v.findViewById(R.id.garment_fragment_camera_button);
-
         setImageView();
+
         return v;
     }
 
@@ -157,6 +164,18 @@ public class GarmentFragment extends Fragment {
                 }
 
                 startActivityForResult(captureImage, REQUEST_PHOTO);
+            }
+        });
+
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPhotoFile.exists()){
+                    FragmentManager manager = getFragmentManager();
+                    DialogFragment dialogFragment = PhotoDialogFragment.newInstance(mPhotoFile.getPath());
+                    dialogFragment.show(manager, DIALOG_PHOTO);
+                }
+
             }
         });
     }

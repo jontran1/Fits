@@ -350,9 +350,6 @@ public class GarmentListFragment extends Fragment {
             Type type = (Type) data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
             Garment newGarment = Garment.createNewGarment(type);
             GarmentLab.get(getActivity()).addGarment(newGarment);
-//            Intent intent = GarmentPagerActivity.newIntent(getActivity(), newGarment.getId());
-//
-//            startActivity(intent);
             mNewLyCreatedPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(newGarment);
             updateUI();
             startCamera(newGarment);

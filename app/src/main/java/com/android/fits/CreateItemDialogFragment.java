@@ -10,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
-import com.android.fits.Models.GarmentLab;
 
 import com.android.fits.TypeUtil.Type;
 
