@@ -1,9 +1,12 @@
 package com.android.fits.Models;
 
+import com.android.fits.TypeUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class Shoe extends Garment {
+public class Shoes extends Garment {
     public static enum ShoeType{
         Sneakers, Running_Shoes, Dress_Shoes,
     }
@@ -12,8 +15,16 @@ public class Shoe extends Garment {
         Size_1, Size_2, Size_3, Size_4
     }
 
-    public Shoe(){
+    public Shoes(){
         super();
+    }
+    public Shoes(UUID id){
+        super(id);
+    }
+
+    @Override
+    public String getGarmentType(){
+        return TypeUtil.Type.Shoes.toString();
     }
 
     /**

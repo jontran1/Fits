@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class GarmentPagerActivity extends AppCompatActivity {
+    private static final String TAG = "GarmentPagerActivity";
+
 
     private static final String EXTRA_GARMENT_ID = "com.android.fits.garment_id";
     private ViewPager mViewPager;
@@ -39,9 +42,14 @@ public class GarmentPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_garment_pager);
 
         mGarments = GarmentLab.get(this).getGarments();
-
         mViewPager = (ViewPager) findViewById(R.id.garment_view_paper);
-        UUID garmentId = (UUID) getIntent().getSerializableExtra(EXTRA_GARMENT_ID);
+        UUID garmentId;
+        if (savedInstanceState != null){
+            garmentId = (UUID) savedInstanceState.getSerializable(EXTRA_GARMENT_ID);
+            Log.i(TAG, "savedInstanceState isn't null  " + garmentId.toString());
+        }else {
+            garmentId = (UUID) getIntent().getSerializableExtra(EXTRA_GARMENT_ID);
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -81,5 +89,44 @@ public class GarmentPagerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(EXTRA_GARMENT_ID, getIntent().getSerializableExtra(EXTRA_GARMENT_ID));
+        UUID garmentId = (UUID) savedInstanceState.getSerializable(EXTRA_GARMENT_ID);
+        System.out.println("savedInstanceState isn't null " + garmentId.toString());
+        Log.i(TAG, "onSaveInstanceState " + garmentId.toString());
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(TAG,"onStart() called");
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(TAG,"onResume() called");
+
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(TAG,"onPause() called");
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(TAG,"onStop() called");
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG,"onDestroy() called");
+    }
 
 }

@@ -210,7 +210,7 @@ public class GarmentListFragment extends Fragment {
      * Updates the garment list fragment.
      */
     private void updateUI(){
-        System.out.println("Recycler List was updated....");
+//        System.out.println("Recycler List was updated....");
         GarmentLab garmentLab = GarmentLab.get(getActivity());
         List<Garment> garments = garmentLab.getGarments();
 
@@ -348,9 +348,10 @@ public class GarmentListFragment extends Fragment {
 
         }else if (requestCode == REQUEST_NEW_ITEM){
             Type type = (Type) data.getSerializableExtra(CreateItemDialogFragment.EXTRA_TYPE);
-            Garment newGarment = Garment.createGarment(type);
+            Garment newGarment = Garment.createNewGarment(type);
             GarmentLab.get(getActivity()).addGarment(newGarment);
             Intent intent = GarmentPagerActivity.newIntent(getActivity(), newGarment.getId());
+
             startActivity(intent);
 //            mPhotoFile = GarmentLab.get(getActivity()).getPhotoFile(newGarment);
             updateUI();

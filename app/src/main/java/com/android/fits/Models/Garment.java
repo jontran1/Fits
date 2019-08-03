@@ -11,9 +11,6 @@ public abstract class Garment {
 
     private UUID mId;
     private Date mDate;
-
-    private String mBrand;
-    private String mStore;
     private String mDescription;
     private String mSize;
     private String mType;
@@ -26,36 +23,64 @@ public abstract class Garment {
         mDate = new Date();
     }
 
-    public static Garment createGarment(Type type){
+    public Garment(UUID id){
+        mId = id;
+    }
+
+    public static Garment createNewGarmentFromDataBase(Type type, UUID id){
+        Garment garment;
+        switch (type){
+            case Hats:
+                garment = new Hat(id);
+                garment.setType(Hat.HatType.Dad_Hat.toString());
+                break;
+            case Top:
+                garment = new Top(id);
+                garment.setType(Top.TopType.Shirt.toString());
+
+                break;
+            case Pants:
+                garment = new Pants(id);
+                garment.setType(Pants.PantsType.Jeans.toString());
+
+                break;
+            default :
+                garment = new Shoes(id);
+                garment.setType(Shoes.ShoeType.Dress_Shoes.toString());
+
+        }
+        return garment;
+    }
+
+    public static Garment createNewGarment(Type type){
         Garment garment;
         switch (type){
             case Hats:
                 garment = new Hat();
-                garment.setSize(Hat.HatSize.Size_1.toString());
                 garment.setType(Hat.HatType.Dad_Hat.toString());
                 break;
             case Top:
                 garment = new Top();
-                garment.setSize(Top.TopSize.XSmall.toString());
                 garment.setType(Top.TopType.Shirt.toString());
                 break;
             case Pants:
                 garment = new Pants();
-                garment.setSize(Pants.PantsSize.thirty_by_thirty.getName());
                 garment.setType(Pants.PantsType.Jeans.toString());
                 break;
             default :
-                garment = new Shoe();
-                garment.setSize(Shoe.ShoeSize.Size_1.toString());
-                garment.setType(Shoe.ShoeType.Sneakers.toString());
+                garment = new Shoes();
+                garment.setType(Shoes.ShoeType.Sneakers.toString());
         }
         return garment;
     }
+
+
 
     public abstract List<String> getSizes();
 
     public abstract List<String> getTypes();
 
+    public abstract String getGarmentType();
 
     public String getType() {
         return mType;
@@ -65,12 +90,18 @@ public abstract class Garment {
         mType = type;
     }
 
+
+
     public UUID getId(){
         return mId;
     }
 
     public Date getDate(){
         return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
     }
 
     public String getSize(){
@@ -81,22 +112,6 @@ public abstract class Garment {
         this.mSize = size;
     }
 
-
-    public String getBrand(){
-        return this.mBrand;
-    }
-
-    public void setBrand(String brand){
-        this.mBrand = brand;
-    }
-
-    public String getStore(){
-        return this.mStore;
-    }
-
-    public void setStore(String store){
-        this.mStore = store;
-    }
 
     public String getDescription(){
         return this.mDescription;

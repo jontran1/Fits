@@ -1,7 +1,10 @@
 package com.android.fits.Models;
 
+import com.android.fits.TypeUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Top extends Garment {
 
@@ -15,6 +18,14 @@ public class Top extends Garment {
 
     public Top(){
         super();
+    }
+    public Top(UUID id){
+        super(id);
+    }
+
+    @Override
+    public String getGarmentType(){
+        return TypeUtil.Type.Top.toString();
     }
 
 

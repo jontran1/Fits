@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class GarmentFragment extends Fragment {
+
+    private static final String TAG = "GarmentFragment";
+
+
     private Garment mGarment;
     private Spinner mSpinnerTypes;
     private Spinner mSpinnerSizes;
@@ -57,7 +62,15 @@ public class GarmentFragment extends Fragment {
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
-        UUID GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
+        UUID GarmentId;
+        if (saveInstanceState != null){
+            GarmentId = (UUID)saveInstanceState.getSerializable(ARG_GARMENT_ID);
+            Log.d(TAG,"onCreate() when saveInstanceState isn't null..." + GarmentId.toString());
+
+        }else {
+            GarmentId = (UUID)getArguments().getSerializable(ARG_GARMENT_ID);
+
+        }
         mGarment = GarmentLab.get(getActivity()).getGarment(GarmentId);
         mTypes = mGarment.getTypes();
         mSizes = mGarment.getSizes();
@@ -157,7 +170,7 @@ public class GarmentFragment extends Fragment {
      * Set up the widget for Brand EditText and listener.
      */
     private void setBrandEditText(){
-        mBrand.setText(mGarment.getBrand());
+        mBrand.setText(null);
         mBrand.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -166,7 +179,7 @@ public class GarmentFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mGarment.setBrand(s.toString());
+
             }
 
             @Override
@@ -180,7 +193,7 @@ public class GarmentFragment extends Fragment {
      * Set up the widget for Store EditText and listener.
      */
     private void setStoreEditText(){
-        mStore.setText(mGarment.getStore());
+        mStore.setText(null);
         mStore.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -189,7 +202,6 @@ public class GarmentFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mGarment.setStore(s.toString());
             }
 
             @Override
@@ -213,6 +225,8 @@ public class GarmentFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mGarment.setDescription(s.toString());
+                updateGarment();
+
             }
 
             @Override
@@ -237,6 +251,7 @@ public class GarmentFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mGarment.setType(mTypes.get(position));
+                updateGarment();
             }
 
             @Override
@@ -261,6 +276,8 @@ public class GarmentFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mGarment.setSize(mSizes.get(position));
+                updateGarment();
+
             }
 
             @Override
@@ -274,7 +291,8 @@ public class GarmentFragment extends Fragment {
      * Update garment model.
      */
     private void updateGarment(){
-        GarmentLab.get(getActivity()).getGarment(mGarment.getId());
+
+        GarmentLab.get(getActivity()).updateGarment(mGarment);
     }
 
     /**
@@ -287,7 +305,6 @@ public class GarmentFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        System.out.println("LOOK HERE: requestCode " + requestCode + " " + "resultcode" + requestCode);
         if (resultCode != Activity.RESULT_OK){
             return;
         }
@@ -321,5 +338,49 @@ public class GarmentFragment extends Fragment {
             mImageView.setImageBitmap(bitmap);
         }
     }
+
+    /*
+    These methods are public because the activity needs to call them.
+     */
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(ARG_GARMENT_ID, getArguments().getSerializable(ARG_GARMENT_ID));
+        UUID garmentId = (UUID) savedInstanceState.getSerializable(ARG_GARMENT_ID);
+        System.out.println("savedInstanceState isn't null " + garmentId.toString());
+        Log.i(TAG, "onSaveInstanceState " + garmentId.toString());
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG,"onStart() called");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG,"onResume() called");
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG,"onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG,"onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG,"onDestroy() called");
+    }
+
 
 }
