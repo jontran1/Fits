@@ -111,11 +111,6 @@ public class GarmentFragment extends Fragment {
         mDescription = (EditText)v.findViewById(R.id.garment_fragment_description);
         setDescriptionEditText();
 
-        mStore = (EditText) v.findViewById(R.id.garment_fragment_store);
-        setStoreEditText();
-
-        mBrand = (EditText) v.findViewById(R.id.garment_fragment_brand);
-        setBrandEditText();
 
         mDate = (TextView) v.findViewById(R.id.garment_fragment_date);
         mDate.setText("Date Create: " + mGarment.getDate().toString());

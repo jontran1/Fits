@@ -1,79 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/garment_fragment_photo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="centerInside"
-            android:cropToPadding="true"
-            android:background="@android:color/darker_gray"/>
-
-        <ImageButton
-            android:id="@+id/garment_fragment_camera_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_camera"/>
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/garment_fragment_photo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/darker_gray"
+                    android:cropToPadding="true"
+                    android:scaleType="centerInside" />
+
+                <ImageButton
+                    android:id="@+id/garment_fragment_camera_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_camera" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="?android:listSeparatorTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type" />
+
+                <Spinner
+                    android:id="@+id/garment_fragment_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="?android:listSeparatorTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/garment_size" />
+
+                <Spinner
+                    android:id="@+id/garment_fragment_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/garment_description"/>
+        <EditText
+            android:id="@+id/garment_fragment_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/garment_fragment_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/type"/>
-    <Spinner
-        android:id="@+id/garment_fragment_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/garment_size"/>
-    <Spinner
-        android:id="@+id/garment_fragment_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/garment_brand"/>
-    <EditText
-        android:id="@+id/garment_fragment_brand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/garment_store"/>
-    <EditText
-        android:id="@+id/garment_fragment_store"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/garment_description"/>
-    <EditText
-        android:id="@+id/garment_fragment_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/garment_fragment_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
