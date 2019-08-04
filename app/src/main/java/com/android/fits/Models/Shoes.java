@@ -8,11 +8,53 @@ import java.util.UUID;
 
 public class Shoes extends Garment {
     public enum ShoeType{
-        Sneakers, Running_Shoes, Dress_Shoes,
+        Sneakers("Sneakers"),
+        Low_Top_Sneakers("Low Top Sneakers"),
+        High_Top_Sneakers("High Top Sneakers"),
+        Tennis_Shoes("Tennis Shoes"),
+        Running_Shoes("Running Shoes"),
+        Dress_Shoes("Dress Shoes"),
+        Boots("Boots");
+
+        private String name;
+
+        ShoeType(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public enum ShoeSize{
-        Size_1, Size_2, Size_3, Size_4
+        seven("7"),
+        seven_point_five("7.5"),
+        eight("8"),
+        eight_point_five("8.5"),
+        nine("9"),
+        nine_point_five("9.5"),
+        ten("10"),
+        ten_point_five("10.5"),
+        eleven("11"),
+        eleven_point_five("11.5"),
+        twelve("12"),
+        twelve_point_five("12.5"),
+        thirteen("13"),
+        thirteen_point_five("13.5"),
+        fourteen("14"),
+        fifteen("15");
+
+        private String name;
+        ShoeSize(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     protected Shoes(){

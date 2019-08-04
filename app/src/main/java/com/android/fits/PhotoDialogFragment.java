@@ -2,6 +2,8 @@ package com.android.fits;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Picture;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -32,8 +34,7 @@ public class PhotoDialogFragment extends DialogFragment {
         String photoPath = getArguments().getString(ARG_FILE_PATH);
         Bitmap bitmap = PictureUtils.getScaledBitmap(photoPath, getActivity());
         mImageView.setImageBitmap(bitmap);
-        System.out.println(photoPath);
-
+        mImageView.setScaleType(ImageView.ScaleType.CENTER);
         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(v);
         return dialog;

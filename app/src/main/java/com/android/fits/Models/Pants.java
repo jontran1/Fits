@@ -21,7 +21,8 @@ public class Pants extends Garment {
             this.name = name;
         }
 
-        public String getName() {
+        @Override
+        public String toString() {
             return this.name;
         }
 
@@ -54,7 +55,8 @@ public class Pants extends Garment {
             this.name = name;
         }
 
-        public String getName() {
+        @Override
+        public String toString() {
             return this.name;
         }
     }
@@ -78,7 +80,7 @@ public class Pants extends Garment {
     public List<String> getSizes(){
         List<String> sizes = new ArrayList<>();
         for (Pants.PantsSize size: Pants.PantsSize.values()){
-            sizes.add(size.getName());
+            sizes.add(size.toString());
         }
         return sizes;
     }
@@ -91,7 +93,7 @@ public class Pants extends Garment {
     public List<String> getTypes(){
         List<String> types = new ArrayList<>();
         for (Pants.PantsType type : Pants.PantsType.values()){
-            types.add(type.getName());
+            types.add(type.toString());
         }
         return types;
     }

@@ -9,7 +9,23 @@ import java.util.UUID;
 public class Top extends Garment {
 
     public enum TopType{
-        Bomber, Jacket, Shirt, Jean_Jacket, Flannel, Hoodie, Sweater
+        Bomber("Bomber"),
+        Jacket("Jacket"),
+        Shirt("Shirt"),
+        Jean_Jacket("Jean Jacket"),
+        Flannel("Flannel"),
+        Hoodie("Hoodie"),
+        Sweater("Sweater");
+
+        private String name;
+        TopType(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public enum TopSize{

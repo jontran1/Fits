@@ -9,11 +9,27 @@ import java.util.UUID;
 public class Hat extends Garment {
 
     public enum HatType{
-        Dad_Hat, Snap_Back, Beanie
+        Dad_Hat("Dad Hat"),
+        Snap_Back("Snap Back"),
+        Beanie("Beanie"),
+        Fedora("Fedora"),
+        Beret("Beret"),
+        Fez("Fez");
+
+        private String name;
+
+        HatType(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public enum HatSize{
-        Size_1, Size_2, Size_3, Size_4
+        Small, Medium, Large,
     }
 
     protected Hat(){
