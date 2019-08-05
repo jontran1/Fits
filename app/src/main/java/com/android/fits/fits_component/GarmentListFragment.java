@@ -1,4 +1,4 @@
-package com.android.fits;
+package com.android.fits.fits_component;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -30,6 +29,7 @@ import com.android.fits.Models.GarmentLab;
 import java.io.File;
 import java.util.List;
 
+import com.android.fits.R;
 import com.android.fits.TypeUtil.Type;
 
 
@@ -47,6 +47,10 @@ public class GarmentListFragment extends Fragment {
     private static final int REQUEST_NEW_ITEM = 1;
     private static final int REQUEST_PHOTO = 2;
 
+    /**
+     * Initizes the fragment.
+     * @param saveInstanceState
+     */
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -66,11 +70,11 @@ public class GarmentListFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState){
 
-        View view = inflater.inflate(R.layout.fragment_garment_list,
+        View view = inflater.inflate(R.layout.items_list,
                 container, false);
 
         mGarmentRecyclerView = (RecyclerView) view.
-                findViewById(R.id.garment_recycler_view);
+                findViewById(R.id.item_list_recycler_view);
 
 
         /*
@@ -117,7 +121,7 @@ public class GarmentListFragment extends Fragment {
         /**
         * This constructor inflates lisT_item_garment.xml Immediately you pass it into
         * super(...), ViewHolder's constructor. The base ViewHolder class will then
-        * hold on to the fragment_garment_list.xml view.
+        * hold on to the items_list.xml view.
         * RecyclerView just shows the items. The adapter has the information
         * on the models and lists. When recyclerview needs to display a new ViewHolder or
         * connect a garment object to an existing viewholder it will ask the adapter for
@@ -173,7 +177,7 @@ public class GarmentListFragment extends Fragment {
 
         /**
          * Creates the ViewHolder for the garment object. Uses the Layout from
-         * the main activity host. Which is the fragment_garment_list.xml.
+         * the main activity host. Which is the items_list.xml.
          * @param parent
          * @param i
          * @return GarmentHolder
@@ -204,6 +208,9 @@ public class GarmentListFragment extends Fragment {
             return mGarments.size();
         }
     }
+
+
+
 
     /**
      * Updates the garment list fragment.
@@ -353,6 +360,8 @@ public class GarmentListFragment extends Fragment {
             startCamera(newGarment);
         }
     }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){

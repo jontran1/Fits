@@ -16,19 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GarmentListActivity"
+        <activity android:name=".fits_component.GarmentListActivity"
             android:parentActivityName=".LaunchingActivity">
 
         </activity>
-        <activity android:name=".GarmentActivity"
-            android:parentActivityName=".GarmentListActivity">
+        <activity android:name=".fits_component.GarmentActivity"
+            android:parentActivityName=".fits_component.GarmentListActivity">
 
         </activity>
-        <activity android:name=".GarmentPagerActivity"
-            android:parentActivityName=".GarmentListActivity">
+        <activity android:name=".fits_component.GarmentPagerActivity"
+            android:parentActivityName=".fits_component.GarmentListActivity">
 
         </activity>
-
+        <activity android:name=".outfits_components.OutfitsListActivity"
+            android:parentActivityName=".LaunchingActivity">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

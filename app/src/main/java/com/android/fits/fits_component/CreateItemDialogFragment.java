@@ -1,4 +1,4 @@
-package com.android.fits;
+package com.android.fits.fits_component;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,12 +13,13 @@ import android.widget.RadioButton;
 
 import com.android.fits.Models.Garment;
 
+import com.android.fits.R;
 import com.android.fits.TypeUtil.Type;
 
 public class CreateItemDialogFragment extends DialogFragment {
 
     public static final String EXTRA_TYPE = "com.android.fits.new_item_dialog_id";
-    private TypeUtil.Type mType;
+    private Type mType;
     private Button mDialogOkButton;
     private Garment mGarment;
     RadioButton mRadioHat, mRadioTop, mRadioPants, mRadioShoes;

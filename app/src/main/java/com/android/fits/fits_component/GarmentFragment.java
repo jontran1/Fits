@@ -1,4 +1,4 @@
-package com.android.fits;
+package com.android.fits.fits_component;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +31,9 @@ import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
+import com.android.fits.PhotoDialogFragment;
+import com.android.fits.PictureUtils;
+import com.android.fits.R;
 
 import java.io.File;
 import java.util.List;

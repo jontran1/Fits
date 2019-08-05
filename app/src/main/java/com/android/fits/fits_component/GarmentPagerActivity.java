@@ -1,4 +1,4 @@
-package com.android.fits;
+package com.android.fits.fits_component;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
+import com.android.fits.R;
 
 import java.util.List;
 import java.util.UUID;

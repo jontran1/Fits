@@ -1,8 +1,10 @@
-package com.android.fits;
+package com.android.fits.fits_component;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+
+import com.android.fits.SingleFragmentActivity;
 
 import java.util.UUID;
 

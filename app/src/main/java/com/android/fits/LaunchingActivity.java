@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.fits.fits_component.GarmentListActivity;
+import com.android.fits.outfits_components.OutfitsListActivity;
+
 public class LaunchingActivity extends AppCompatActivity {
     private Button launchFitsButton;
     private Button launchOutfitsButton;
@@ -26,8 +29,15 @@ public class LaunchingActivity extends AppCompatActivity {
             }
         });
 
+        final Intent outfitsIntent = new Intent(this, OutfitsListActivity.class);
         launchOutfitsButton = (Button) findViewById(R.id.launch_outfits);
 
+        launchOutfitsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(outfitsIntent);
+            }
+        });
 
 
     }
