@@ -1,6 +1,7 @@
 package com.android.fits.outfits_components;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,37 @@ public class OutfitsListFragment extends Fragment {
         mOutfitsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
+    }
+
+    private class OutfitHolder extends RecyclerView.ViewHolder {
+
+        public OutfitHolder(LayoutInflater inflater, ViewGroup parent){
+            super(inflater.inflate(R.layout.list_item_outfit, parent, false));
+
+        }
+
+    }
+
+    private class OutfitAdapter extends RecyclerView.Adapter<OutfitHolder>{
+        public OutfitAdapter(){
+
+        }
+
+        @NonNull
+        @Override
+        public OutfitHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return null;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull OutfitHolder outfitHolder, int i) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 0;
+        }
     }
 
 
