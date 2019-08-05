@@ -23,4 +23,7 @@
 
     <string name="list_item_date_created">Date Created:\u0020</string>
     <string name="list_item_size">Size:\u0020</string>
+
+    <string name="launch_fits_button">Fits</string>
+    <string name="launch_outfits_button">Outfits</string>
 </resources>

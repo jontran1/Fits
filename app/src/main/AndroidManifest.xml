@@ -9,12 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GarmentListActivity">
+        <activity android:name=".LaunchingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".GarmentListActivity"
+            android:parentActivityName=".LaunchingActivity">
+
         </activity>
         <activity android:name=".GarmentActivity"
             android:parentActivityName=".GarmentListActivity">
