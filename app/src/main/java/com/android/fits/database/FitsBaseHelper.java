@@ -14,7 +14,7 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
     }
 
     /**(
-     * Create the database here.
+     * Create the database and tables here.
      * @param db
      */
     @Override
@@ -39,11 +39,11 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table " + DbSchema.Outfit_Garment_Relation.NAME + "(" +
-                        " _id integer primary key autoincrement," +
-                        DbSchema.Outfit_Garment_Relation.Cols.UUID + ", " +
-                        DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + ", " +
-                        " FOREIGN KEY ("+ DbSchema.Outfit_Garment_Relation.Cols.UUID +") " +
-                        "REFERENCES "+ DbSchema.OutfitTable.NAME+"("+ DbSchema.OutfitTable.Cols.UUID+"));"
+                " _id integer primary key autoincrement," +
+                DbSchema.Outfit_Garment_Relation.Cols.UUID + ", " +
+                DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + ", " +
+                " FOREIGN KEY ("+ DbSchema.Outfit_Garment_Relation.Cols.UUID +") " +
+                "REFERENCES "+ DbSchema.OutfitTable.NAME+"("+ DbSchema.OutfitTable.Cols.UUID+"));"
         );
 
 
