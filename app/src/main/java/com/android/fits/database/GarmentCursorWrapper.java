@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.android.fits.TypeUtil;
-import com.android.fits.database.GarmentDbSchema.GarmentTable;
+import com.android.fits.database.DbSchema.GarmentTable;
 import com.android.fits.Models.Garment;
 
 import java.util.Date;

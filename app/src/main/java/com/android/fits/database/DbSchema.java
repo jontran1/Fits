@@ -1,6 +1,6 @@
 package com.android.fits.database;
 
-public class GarmentDbSchema {
+public class DbSchema {
     public static final class GarmentTable{
         /*
         The CrimeTable class only exists to define the String
@@ -11,12 +11,30 @@ public class GarmentDbSchema {
         public static final String NAME = "garments";
 
         public static final class Cols{
-            public static final String UUID = "uuid";
+            public static final String UUID = "garment_uuid";
             public static final String DESCRIPTION = "description";
             public static final String DATE = "date";
             public static final String SIZE = "size";
             public static final String TYPE = "type";
             public static final String GARMENT_TYPE = "garment_type";
+        }
+    }
+
+    public static final class OutfitTable{
+        public static final String NAME = "outfits";
+
+        public static final class Cols{
+            public static final String UUID = "outfit_uuid";
+            public static final String OUTFIT_NAME = "outfit_name";
+        }
+    }
+
+    public static final class Outfit_Garment_Relation{
+        public static final String NAME = "outfits_garments_relations";
+
+        public static final class Cols{
+            public static final String UUID = "outfit_uuid";
+            public static final String GARMENT_UUID = "garment_id";
         }
     }
 }

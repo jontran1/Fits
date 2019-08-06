@@ -1,6 +1,6 @@
 package com.android.fits.database;
 
-import com.android.fits.database.GarmentDbSchema.GarmentTable;
+import com.android.fits.database.DbSchema.GarmentTable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;

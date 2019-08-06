@@ -4,11 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.android.fits.database.GarmentDbSchema.GarmentTable;
+import com.android.fits.database.DbSchema.GarmentTable;
 
 import com.android.fits.database.GarmentBaseHelper;
 import com.android.fits.database.GarmentCursorWrapper;
-import com.android.fits.database.GarmentDbSchema;
+import com.android.fits.database.DbSchema;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -142,7 +142,7 @@ public class GarmentLab {
 
     private GarmentCursorWrapper queryGarments(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
-                GarmentDbSchema.GarmentTable.NAME,
+                DbSchema.GarmentTable.NAME,
                 null,
                 whereClause,
                 whereArgs,
