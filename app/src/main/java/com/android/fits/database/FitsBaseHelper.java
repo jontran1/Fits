@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class GarmentBaseHelper extends SQLiteOpenHelper {
+public class FitsBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "crimeBase.db";
+    private static final String DATABASE_NAME = "fitsBase.db";
 
-    public GarmentBaseHelper(Context context){
+    public FitsBaseHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -29,6 +29,23 @@ public class GarmentBaseHelper extends SQLiteOpenHelper {
                 GarmentTable.Cols.GARMENT_TYPE +
                 ")"
         );
+
+        db.execSQL("create table " + DbSchema.OutfitTable.NAME + "(" +
+                " _id integer primary key autoincrement," +
+                DbSchema.OutfitTable.Cols.UUID + ", " +
+                DbSchema.OutfitTable.Cols.OUTFIT_NAME +
+                ")"
+        );
+
+        db.execSQL(
+                "create table " + DbSchema.Outfit_Garment_Relation.NAME + "(" +
+                        " _id integer primary key autoincrement," +
+                        DbSchema.Outfit_Garment_Relation.Cols.UUID + ", " +
+                        DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + ", " +
+                        " FOREIGN KEY ("+ DbSchema.Outfit_Garment_Relation.Cols.UUID +") " +
+                        "REFERENCES "+ DbSchema.OutfitTable.NAME+"("+ DbSchema.OutfitTable.Cols.UUID+"));"
+        );
+
 
     }
 

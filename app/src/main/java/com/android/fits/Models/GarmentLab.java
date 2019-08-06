@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.android.fits.database.DbSchema.GarmentTable;
 
-import com.android.fits.database.GarmentBaseHelper;
+import com.android.fits.database.FitsBaseHelper;
 import com.android.fits.database.GarmentCursorWrapper;
 import com.android.fits.database.DbSchema;
 
@@ -48,7 +48,7 @@ public class GarmentLab {
          * This function getWritableDatabase() will open the database,
          * or create. If it opens it checks to see if it should update.
          */
-        mDatabase = new GarmentBaseHelper(mContext).getWritableDatabase();
+        mDatabase = new FitsBaseHelper(mContext).getWritableDatabase();
         mGarments = new LinkedHashMap<>();
 
     }
