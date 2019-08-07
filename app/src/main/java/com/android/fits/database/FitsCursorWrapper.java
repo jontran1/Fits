@@ -4,22 +4,27 @@ package com.android.fits.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
+import com.android.fits.Models.Outfit;
 import com.android.fits.TypeUtil;
 import com.android.fits.database.DbSchema.GarmentTable;
+import com.android.fits.database.DbSchema.OutfitTable;
+import com.android.fits.database.DbSchema.Outfit_Garment_Relation;
+
+
 import com.android.fits.Models.Garment;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class GarmentCursorWrapper extends CursorWrapper {
+public class FitsCursorWrapper extends CursorWrapper {
 
-    public GarmentCursorWrapper(Cursor cursor){
+    public FitsCursorWrapper(Cursor cursor){
         super(cursor);
     }
 
     /**
-     * Retrieves the crime from the cursor and creates a new Crime
-     * using the information from the cursor. The crime is then returned.
+     * Retrieves the garment from the cursor and creates a new garment
+     * using the information from the cursor. The garment is then returned.
      * @return crime
      */
     public Garment getGarment(){
@@ -37,5 +42,16 @@ public class GarmentCursorWrapper extends CursorWrapper {
         garment.setType(type);
 
         return garment;
+    }
+
+    /**
+     * Retrieves the outfit from the database and returns the outfit.
+     * @return
+     */
+    public Outfit getOutfit(){
+        String uuidString = getString(getColumnIndex(OutfitTable.Cols.UUID));
+        String outfitNameString = getString(getColumnIndex(OutfitTable.Cols.OUTFIT_NAME));
+        Outfit outfit = new Outfit(outfitNameString, UUID.fromString(uuidString));
+        return outfit;
     }
 }

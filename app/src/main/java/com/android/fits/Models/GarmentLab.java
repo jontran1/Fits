@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.android.fits.database.DbSchema.GarmentTable;
 
 import com.android.fits.database.FitsBaseHelper;
-import com.android.fits.database.GarmentCursorWrapper;
+import com.android.fits.database.FitsCursorWrapper;
 import com.android.fits.database.DbSchema;
 
 import java.io.File;
@@ -59,7 +59,7 @@ public class GarmentLab {
      */
     public List<Garment> getGarments() {
         List<Garment> list = new ArrayList<>();
-        GarmentCursorWrapper cursorWrapper = queryGarments(null, null);
+        FitsCursorWrapper cursorWrapper = queryGarments(null, null);
 
         try {
             cursorWrapper.moveToFirst();
@@ -80,7 +80,7 @@ public class GarmentLab {
      * @return
      */
     public Garment getGarment(UUID id){
-        GarmentCursorWrapper cursor = queryGarments(GarmentTable.Cols.UUID + "= ?",
+        FitsCursorWrapper cursor = queryGarments(GarmentTable.Cols.UUID + "= ?",
                 new String[] {id.toString()});
         try {
             if (cursor.getCount() == 0){
@@ -140,7 +140,7 @@ public class GarmentLab {
         return new File(filesDir, garment.getPhotoFileName());
     }
 
-    private GarmentCursorWrapper queryGarments(String whereClause, String[] whereArgs){
+    private FitsCursorWrapper queryGarments(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
                 DbSchema.GarmentTable.NAME,
                 null,
@@ -150,12 +150,12 @@ public class GarmentLab {
                 null,
                 null
         );
-        return new GarmentCursorWrapper(cursor);
+        return new FitsCursorWrapper(cursor);
     }
 
     /**
-     * This method maps Crime into ContentValues. This creates
-     * ContentValues instances from Crimes.
+     * This method maps Garment into ContentValues. This creates
+     * ContentValues instances from Garment.
      * @param garment
      * @return
      */
