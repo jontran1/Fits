@@ -54,4 +54,14 @@ public class FitsCursorWrapper extends CursorWrapper {
         Outfit outfit = new Outfit(outfitNameString, UUID.fromString(uuidString));
         return outfit;
     }
+
+    /**
+     * Retrieves the garments related to the outfit.
+     * @return
+     */
+    public UUID getOutfitRelatedGarmentsId(){
+        String uuidString = getString(getColumnIndex(Outfit_Garment_Relation.Cols.GARMENT_UUID));
+        System.out.println("getOutfitRelatedGarmentsId(): " + uuidString);
+        return UUID.fromString(uuidString);
+    }
 }

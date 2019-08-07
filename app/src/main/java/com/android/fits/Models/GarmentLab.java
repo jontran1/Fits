@@ -76,12 +76,12 @@ public class GarmentLab {
     /**
      * Returns a specific garment from the GarmentLab
      * using UUID id.
-     * @param id
+     * @param garmentId
      * @return
      */
-    public Garment getGarment(UUID id){
+    public Garment getGarment(UUID garmentId){
         FitsCursorWrapper cursor = queryGarments(GarmentTable.Cols.UUID + "= ?",
-                new String[] {id.toString()});
+                new String[] {garmentId.toString()});
         try {
             if (cursor.getCount() == 0){
                 return null;

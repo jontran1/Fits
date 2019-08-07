@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.fits.Models.Garment;
+import com.android.fits.Models.GarmentLab;
 import com.android.fits.Models.Outfit;
 import com.android.fits.Models.OutfitLab;
 import com.android.fits.R;
+import com.android.fits.TypeUtil;
 
 import java.util.List;
 
@@ -41,6 +44,21 @@ public class OutfitsListFragment extends Fragment {
         System.out.println(outfit.getUUID());
         OutfitLab.get(getActivity()).addOutfit(outfit);
         List list = OutfitLab.get(getActivity()).getOutfits();
+
+        Garment top = Garment.createNewGarment(TypeUtil.Type.Top);
+        Garment pants = Garment.createNewGarment(TypeUtil.Type.Pants);
+        Garment hat = Garment.createNewGarment(TypeUtil.Type.Hats);
+        GarmentLab.get(getActivity()).addGarment(top);
+        GarmentLab.get(getActivity()).addGarment(pants);
+        GarmentLab.get(getActivity()).addGarment(hat);
+
+
+        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), top.getId());
+        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), pants.getId());
+        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), hat.getId());
+
+        List<Garment> garments_related_outfit = OutfitLab.get(getActivity()).getGarmentsRelatedOutfit(outfit.getUUID(), getActivity());
+        System.out.println(garments_related_outfit.toString());
         System.out.println(list.toString());
 
         return view;

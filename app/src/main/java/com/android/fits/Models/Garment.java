@@ -127,4 +127,8 @@ public abstract class Garment {
         return "IMG_" + getId().toString() + ".jpg";
     }
 
+    @Override
+    public String toString(){
+        return getId().toString();
+    }
 }

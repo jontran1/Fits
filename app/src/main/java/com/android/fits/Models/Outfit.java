@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Outfit {
     private UUID mUUID;
-    private List<Garment> mGarmentsList;
+    private List<UUID> mGarmentsList;
     private String outfitName;
 
     public Outfit(String outfitName){
@@ -26,11 +26,11 @@ public class Outfit {
         mUUID = UUID;
     }
 
-    public List<Garment> getGarmentsList() {
+    public List<UUID> getGarmentsList() {
         return mGarmentsList;
     }
 
-    public void setGarmentsList(List<Garment> garmentsList) {
+    public void setGarmentsList(List<UUID> garmentsList) {
         mGarmentsList = garmentsList;
     }
 
