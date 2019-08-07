@@ -119,7 +119,7 @@ public class GarmentListFragment extends Fragment {
         private Garment mGarment;
 
         /**
-        * This constructor inflates lisT_item_garment.xml Immediately you pass it into
+        * This constructor inflates list_item_garment.xml Immediately you pass it into
         * super(...), ViewHolder's constructor. The base ViewHolder class will then
         * hold on to the items_list.xml view.
         * RecyclerView just shows the items. The adapter has the information

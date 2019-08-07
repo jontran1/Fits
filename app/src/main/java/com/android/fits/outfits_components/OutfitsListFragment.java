@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
 import com.android.fits.Models.GarmentLab;
@@ -23,9 +24,20 @@ import java.util.UUID;
 public class OutfitsListFragment extends Fragment {
 
     private RecyclerView mOutfitsRecyclerView;
+    private OutfitAdapter mOutfitAdapter;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
+        Outfit outfit = new Outfit("Jon's Big Day");
+        Garment top = GarmentLab.createNewGarment(TypeUtil.Type.Top);
+        Garment pants = GarmentLab.createNewGarment(TypeUtil.Type.Top);
+        Garment hat = GarmentLab.createNewGarment(TypeUtil.Type.Top);
+
+        OutfitLab.get(getActivity()).addOutfit(outfit);
+        List list = OutfitLab.get(getActivity()).getOutfits();
+        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), top.getId());
+        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), pants.getId());
+        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), hat.getId());
         super.onCreate(saveInstanceState);
     }
 
@@ -40,40 +52,79 @@ public class OutfitsListFragment extends Fragment {
         mOutfitsRecyclerView = (RecyclerView) view.findViewById(R.id.item_list_recycler_view);
 
         mOutfitsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        updateUI();
 
         return view;
     }
 
     private class OutfitHolder extends RecyclerView.ViewHolder {
+        private TextView mTitle;
+        private TextView mDate;
+        private Outfit mOutfit;
 
         public OutfitHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_outfit, parent, false));
+            mTitle = (TextView) itemView.findViewById(R.id.outfit_name);
+            mDate = (TextView) itemView.findViewById(R.id.outfit_date_created);
 
+        }
+
+        public void bind(Outfit outfit){
+            mOutfit = outfit;
+            mTitle.setText(mOutfit.getOutfitName());
         }
 
     }
 
     private class OutfitAdapter extends RecyclerView.Adapter<OutfitHolder>{
-        public OutfitAdapter(){
+        private List<Outfit> mOutfits;
 
+        /**
+         * Constructor for OutfitAdapter that takes in a list of outfits.
+         * @param outfits
+         */
+        public OutfitAdapter(List<Outfit> outfits){
+            this.mOutfits = outfits;
         }
 
+        /**
+         * Creates a new OutfitHolder. After getItemCount() is called.
+         * @param parent
+         * @param i
+         * @return
+         */
         @NonNull
         @Override
-        public OutfitHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return null;
+        public OutfitHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+            return new OutfitHolder(layoutInflater, parent);
         }
 
         @Override
         public void onBindViewHolder(@NonNull OutfitHolder outfitHolder, int i) {
-
+            Outfit outfit = mOutfits.get(i);
+            outfitHolder.bind(outfit);
         }
 
+        /**
+         * Returns the size how many outfits there are so the recycler list
+         * can know.
+         * @return
+         */
         @Override
         public int getItemCount() {
-            return 0;
+            return OutfitLab.get(getContext()).getOutfits().size();
         }
+    }
+
+    /**
+     * Reloads recycler list view.
+     */
+    private void updateUI(){
+        OutfitLab outfitLab = OutfitLab.get(getActivity());
+        List<Outfit> outfits = outfitLab.getOutfits();
+        mOutfitAdapter = new OutfitAdapter(outfits);
+        mOutfitsRecyclerView.setAdapter(mOutfitAdapter);
     }
 
 
