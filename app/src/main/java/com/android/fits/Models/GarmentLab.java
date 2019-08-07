@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
+import com.android.fits.TypeUtil;
 import com.android.fits.database.DbSchema.GarmentTable;
 
 import com.android.fits.database.FitsBaseHelper;
@@ -188,5 +189,37 @@ public class GarmentLab {
 
 
         return values;
+    }
+
+    /**
+     * Creates a new garment and adds it to the database.
+     * @param type
+     * @return
+     */
+    public static Garment createNewGarment(TypeUtil.Type type){
+        Garment garment;
+        switch (type){
+            case Hats:
+                garment = new Hat();
+                garment.setType(Hat.HatType.Dad_Hat.toString());
+                garment.setSize(Hat.HatSize.Small.toString());
+                break;
+            case Top:
+                garment = new Top();
+                garment.setType(Top.TopType.Bomber.toString());
+                garment.setSize(Top.TopSize.XSmall.toString());
+                break;
+            case Pants:
+                garment = new Pants();
+                garment.setType(Pants.PantsType.BasketBall_Shorts.toString());
+                garment.setSize(Pants.PantsSize.thirtyeight_by_thirtytwo.toString());
+                break;
+            default :
+                garment = new Shoes();
+                garment.setType(Shoes.ShoeType.Boots.toString());
+                garment.setSize(Shoes.ShoeSize.eight.toString());
+        }
+        sGarmentLab.addGarment(garment);
+        return garment;
     }
 }

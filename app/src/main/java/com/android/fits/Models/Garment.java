@@ -53,29 +53,6 @@ public abstract class Garment {
         return garment;
     }
 
-    /**
-     * When a new garment is created in memory.
-     * @param type
-     * @return
-     */
-    public static Garment createNewGarment(Type type){
-        Garment garment;
-        switch (type){
-            case Hats:
-                garment = new Hat();
-                break;
-            case Top:
-                garment = new Top();
-                break;
-            case Pants:
-                garment = new Pants();
-                break;
-            default :
-                garment = new Shoes();
-        }
-        return garment;
-    }
-
 
 
     public abstract List<String> getSizes();
