@@ -3,7 +3,10 @@ package com.android.fits.Models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+
 import com.android.fits.database.DbSchema.GarmentTable;
 
 import com.android.fits.database.FitsBaseHelper;
@@ -99,7 +102,11 @@ public class GarmentLab {
      */
     public void addGarment(Garment garment){
         ContentValues values = getContentValues(garment);
-        mDatabase.insert(GarmentTable.NAME, null, values);
+        try {
+            mDatabase.insert(GarmentTable.NAME, null, values);
+        }catch (SQLiteException e){
+            System.out.println("Garment Id repeated " + garment.getId().toString());
+        }
     }
 
     /**

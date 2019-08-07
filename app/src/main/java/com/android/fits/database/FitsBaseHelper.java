@@ -20,8 +20,7 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL("create table " + GarmentTable.NAME + "(" +
-                " _id integer primary key autoincrement," +
-                GarmentTable.Cols.UUID + ", " +
+                GarmentTable.Cols.UUID + " primary key, " +
                 GarmentTable.Cols.DESCRIPTION + ", " +
                 GarmentTable.Cols.DATE + ", " +
                 GarmentTable.Cols.SIZE + ", " +
@@ -31,17 +30,16 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
         );
 
         db.execSQL("create table " + DbSchema.OutfitTable.NAME + "(" +
-                " _id integer primary key autoincrement," +
-                DbSchema.OutfitTable.Cols.UUID + ", " +
+                DbSchema.OutfitTable.Cols.UUID + " primary key, " +
                 DbSchema.OutfitTable.Cols.OUTFIT_NAME +
                 ")"
         );
 
         db.execSQL(
                 "create table " + DbSchema.Outfit_Garment_Relation.NAME + "(" +
-                " _id integer primary key autoincrement," +
                 DbSchema.Outfit_Garment_Relation.Cols.UUID + ", " +
                 DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + ", " +
+                " primary key (" + DbSchema.Outfit_Garment_Relation.Cols.UUID + " , " + DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + " ) ," +
                 " FOREIGN KEY ("+ DbSchema.Outfit_Garment_Relation.Cols.UUID +") " +
                 "REFERENCES "+ DbSchema.OutfitTable.NAME+"("+ DbSchema.OutfitTable.Cols.UUID+"));"
         );

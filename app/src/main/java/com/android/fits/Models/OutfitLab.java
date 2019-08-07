@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class OutfitLab {
+
     public static OutfitLab mOutfitLab;
     private Context mContext;
     private SQLiteDatabase mDatabase;
@@ -58,6 +59,17 @@ public class OutfitLab {
     }
 
     /**
+     * Removes garments from outfits in Outfit_Garment_Relation table.
+     * @param outfitId
+     * @param garmentId
+     */
+    public void removeGarmentsFromOutfits(UUID outfitId, UUID garmentId){
+        ContentValues values = getContentValuesOutfitRelatedGarments(outfitId, garmentId);
+        mDatabase.delete(Outfit_Garment_Relation.NAME, Outfit_Garment_Relation.Cols.UUID + " = ? and " + Outfit_Garment_Relation.Cols.GARMENT_UUID + " = ? ",
+                new String[]{outfitId.toString(), garmentId.toString()});
+    }
+
+    /**
      * Queries the database and retrieves all the outfits in the db.
      * @return
      */
@@ -84,7 +96,7 @@ public class OutfitLab {
      * @param context
      * @return list
      */
-    public List<Garment> getGarmentsRelatedOutfit(UUID outfitId, Context context){
+    public List<Garment> getGarmentsRelatedToOutfit(UUID outfitId, Context context){
         List<Garment> list = new ArrayList<>();
         FitsCursorWrapper cursorWrapper = queryOutfitRelatedGarments(
                 Outfit_Garment_Relation.Cols.UUID + "= ?",
