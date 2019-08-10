@@ -115,6 +115,14 @@ public class OutfitLab {
     }
 
     /**
+     * Returns the correct number of outfits.
+     * @return int size.
+     */
+    public int getSize(){
+        return getOutfits().size();
+    }
+
+    /**
      * Queries the database OutfitTable.
      */
     private FitsCursorWrapper queryOutfits(String whereClause, String[] whereArgs){

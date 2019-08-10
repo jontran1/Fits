@@ -3,6 +3,7 @@ package com.android.fits.outfits_components;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -143,6 +144,8 @@ public class OutfitsListFragment extends Fragment {
         List<Outfit> outfits = outfitLab.getOutfits();
         mOutfitAdapter = new OutfitAdapter(outfits);
         mOutfitsRecyclerView.setAdapter(mOutfitAdapter);
+        updateSubtitle();
+
     }
     /**
      * Menus are managed by callbacks from the Activity class.
@@ -178,15 +181,29 @@ public class OutfitsListFragment extends Fragment {
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
+                // Menu has been chanced so it should be recreated by invalidateOptionsMenu()
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * Displays the number of items in recycler list action bar.
+     */
     private void updateSubtitle(){
-        if (mSubtitleVisible){
+        OutfitLab outfitLab = OutfitLab.get(getActivity());
+        int outfitCount = outfitLab.getSize();
+        String subtitle = getString(R.string.subtitle_format, outfitCount);
 
+        if (!mSubtitleVisible){
+            subtitle = null;
         }
+        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
+
     }
 
 

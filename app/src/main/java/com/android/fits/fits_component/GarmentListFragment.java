@@ -268,6 +268,7 @@ public class GarmentListFragment extends Fragment {
 
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
+                // Menu has been chanced so it should be recreated by invalidateOptionsMenu()
                 getActivity().invalidateOptionsMenu();
                 updateSubtitle();
                 return true;
@@ -282,7 +283,7 @@ public class GarmentListFragment extends Fragment {
     }
 
     /**
-     * Displays the number of items in recycler list.
+     * Displays the number of items in recycler list in action bar.
      */
     private void updateSubtitle(){
         GarmentLab garmentLab = GarmentLab.get(getActivity());
