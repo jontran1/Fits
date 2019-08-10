@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +28,8 @@ public class OutfitsListFragment extends Fragment {
 
     private RecyclerView mOutfitsRecyclerView;
     private OutfitAdapter mOutfitAdapter;
+    private boolean mSubtitleVisible;
+
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -43,15 +48,34 @@ public class OutfitsListFragment extends Fragment {
 
         mOutfitsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
+        /*
+        The fragment manager is responsible for calling
+        Fragment.onCreateOptionsMen(...) when the activity receives its
+        onCreateOptionsMenu(...) callback from the OS. You must
+        explicitly tell the FragmentManager that your fragment should
+        receive a call to onCreateOptionsMenu(...).
+         */
+        setHasOptionsMenu(true);
 
         return view;
     }
 
+    /**
+     * OutfitHolder responsible for holding data related to outfit in the
+     * recycler view list.
+     */
     private class OutfitHolder extends RecyclerView.ViewHolder {
         private TextView mTitle;
         private TextView mDate;
         private Outfit mOutfit;
 
+        /**
+         * Constructor
+         * Takes in an inflater and inflates the list_item_out.xml on to the
+         * recycler list.
+         * @param inflater
+         * @param parent
+         */
         public OutfitHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_outfit, parent, false));
             mTitle = (TextView) itemView.findViewById(R.id.outfit_name);
@@ -66,6 +90,10 @@ public class OutfitsListFragment extends Fragment {
 
     }
 
+    /**
+     * The OutfitAdapter knows  the details of each outfit while the
+     * OutfitHolder just displays the information.
+     */
     private class OutfitAdapter extends RecyclerView.Adapter<OutfitHolder>{
         private List<Outfit> mOutfits;
 
@@ -116,6 +144,28 @@ public class OutfitsListFragment extends Fragment {
         mOutfitAdapter = new OutfitAdapter(outfits);
         mOutfitsRecyclerView.setAdapter(mOutfitAdapter);
     }
+    /**
+     * Menus are managed by callbacks from the Activity class.
+     * When the menu is needed Android calls the Activity method
+     * onCreateOptionsMenu(Menu), However for the fragment. It comes
+     * with its own set of menu callbacks.
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        /*
+        Passing the res Id of the menu file. This populates the Menu
+        instance with the items defined in your file.
+         */
+        inflater.inflate(R.menu.fragment_outfit_list, menu);
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+        if (mSubtitleVisible){
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        }else
+            subtitleItem.setTitle(R.string.show_subtitle);
+    }
+
+
 
 
 }
