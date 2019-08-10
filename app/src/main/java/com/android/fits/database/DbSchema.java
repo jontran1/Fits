@@ -26,6 +26,7 @@ public class DbSchema {
         public static final class Cols{
             public static final String UUID = "outfit_uuid";
             public static final String OUTFIT_NAME = "outfit_name";
+            public static final String DATE = "date";
         }
     }
 

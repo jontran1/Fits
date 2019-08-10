@@ -8,10 +8,12 @@ public class Outfit {
     private UUID mUUID;
     private List<UUID> mGarmentsList;
     private String outfitName;
+    private Date mDate;
 
     public Outfit(String outfitName){
         this.mUUID = UUID.randomUUID();
         this.outfitName = outfitName;
+        this.mDate = new Date();
     }
 
     public Outfit(String outfitName, UUID id){
@@ -41,6 +43,14 @@ public class Outfit {
 
     public void setOutfitName(String outfitName) {
         this.outfitName = outfitName;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
     }
 
     @Override

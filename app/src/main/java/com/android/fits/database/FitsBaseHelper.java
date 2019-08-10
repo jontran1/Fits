@@ -36,6 +36,7 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + OutfitTable.NAME + "(" +
                 OutfitTable.Cols.UUID + " primary key, " +
                 OutfitTable.Cols.OUTFIT_NAME +
+                OutfitTable.Cols.DATE +
                 ")"
         );
 
