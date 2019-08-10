@@ -165,6 +165,30 @@ public class OutfitsListFragment extends Fragment {
             subtitleItem.setTitle(R.string.show_subtitle);
     }
 
+    /**
+     * Handles the menu actions.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.new_outfit:
+
+                return true;
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void updateSubtitle(){
+        if (mSubtitleVisible){
+
+        }
+    }
+
 
 
 

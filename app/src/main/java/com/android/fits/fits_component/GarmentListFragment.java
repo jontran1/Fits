@@ -281,6 +281,9 @@ public class GarmentListFragment extends Fragment {
         }
     }
 
+    /**
+     * Displays the number of items in recycler list.
+     */
     private void updateSubtitle(){
         GarmentLab garmentLab = GarmentLab.get(getActivity());
         int garmentCount = garmentLab.getSize();
