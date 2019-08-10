@@ -28,16 +28,6 @@ public class OutfitsListFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle saveInstanceState){
-        Outfit outfit = new Outfit("Jon's Big Day");
-        Garment top = GarmentLab.createNewGarment(TypeUtil.Type.Top);
-        Garment pants = GarmentLab.createNewGarment(TypeUtil.Type.Top);
-        Garment hat = GarmentLab.createNewGarment(TypeUtil.Type.Top);
-
-        OutfitLab.get(getActivity()).addOutfit(outfit);
-        List list = OutfitLab.get(getActivity()).getOutfits();
-        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), top.getId());
-        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), pants.getId());
-        OutfitLab.get(getActivity()).addGarmentsToOutfits(outfit.getUUID(), hat.getId());
         super.onCreate(saveInstanceState);
     }
 

@@ -26,4 +26,7 @@
 
     <string name="launch_fits_button">Fits</string>
     <string name="launch_outfits_button">Outfits</string>
+
+    <string name="new_outfit">New Outfit</string>
+    <string name="remove_outfit">Remove Outfit</string>
 </resources>
