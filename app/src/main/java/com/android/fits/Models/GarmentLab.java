@@ -133,7 +133,7 @@ public class GarmentLab {
 
 
     public int getSize(){
-        return mGarments.size();
+        return getGarments().size();
     }
 
     /**
