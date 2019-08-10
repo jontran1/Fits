@@ -162,11 +162,14 @@ public class OutfitLab {
      */
     private static ContentValues getContentValuesOutfits(Outfit outfit){
         ContentValues values = new ContentValues();
-        values.put(DbSchema.OutfitTable.Cols.UUID,
+        values.put(OutfitTable.Cols.UUID,
                 outfit.getUUID().toString());
 
-        values.put(DbSchema.OutfitTable.Cols.OUTFIT_NAME,
+        values.put(OutfitTable.Cols.OUTFIT_NAME,
                 outfit.getOutfitName());
+
+        values.put(OutfitTable.Cols.DATE,
+                outfit.getDate().getTime());
 
         return values;
     }

@@ -16,9 +16,10 @@ public class Outfit {
         this.mDate = new Date();
     }
 
-    public Outfit(String outfitName, UUID id){
+    public Outfit(String outfitName, UUID id, Date date){
         this.mUUID = id;
         this.outfitName = outfitName;
+        this.mDate = date;
     }
 
     public UUID getUUID() {

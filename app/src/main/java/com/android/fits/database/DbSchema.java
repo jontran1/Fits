@@ -13,7 +13,7 @@ public class DbSchema {
         public static final class Cols{
             public static final String UUID = "garment_uuid";
             public static final String DESCRIPTION = "description";
-            public static final String DATE = "date";
+            public static final String DATE = "date_created";
             public static final String SIZE = "size";
             public static final String TYPE = "type";
             public static final String GARMENT_TYPE = "garment_type";
@@ -26,7 +26,7 @@ public class DbSchema {
         public static final class Cols{
             public static final String UUID = "outfit_uuid";
             public static final String OUTFIT_NAME = "outfit_name";
-            public static final String DATE = "date";
+            public static final String DATE = "date_created";
         }
     }
 

@@ -51,7 +51,8 @@ public class FitsCursorWrapper extends CursorWrapper {
     public Outfit getOutfit(){
         String uuidString = getString(getColumnIndex(OutfitTable.Cols.UUID));
         String outfitNameString = getString(getColumnIndex(OutfitTable.Cols.OUTFIT_NAME));
-        Outfit outfit = new Outfit(outfitNameString, UUID.fromString(uuidString));
+        Long outfitDateCreated = getLong(getColumnIndex(OutfitTable.Cols.DATE));
+        Outfit outfit = new Outfit(outfitNameString, UUID.fromString(uuidString), new Date(outfitDateCreated));
         return outfit;
     }
 

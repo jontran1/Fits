@@ -88,6 +88,7 @@ public class OutfitsListFragment extends Fragment {
         public void bind(Outfit outfit){
             mOutfit = outfit;
             mTitle.setText(mOutfit.getOutfitName());
+            mDate.setText(mOutfit.getDate().toString());
         }
 
     }
@@ -178,7 +179,9 @@ public class OutfitsListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_outfit:
-
+                Outfit outfit = new Outfit("Jon's Big Day LOL");
+                OutfitLab.get(getActivity()).addOutfit(outfit);
+                updateUI();
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
