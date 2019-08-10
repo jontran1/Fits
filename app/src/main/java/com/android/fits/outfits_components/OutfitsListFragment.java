@@ -181,9 +181,10 @@ public class OutfitsListFragment extends Fragment {
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
+                updateSubtitle();
+
                 // Menu has been chanced so it should be recreated by invalidateOptionsMenu()
                 getActivity().invalidateOptionsMenu();
-                updateSubtitle();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
