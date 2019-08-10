@@ -35,6 +35,7 @@ public class OutfitsListFragment extends Fragment {
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
+
     }
 
     @Override

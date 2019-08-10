@@ -1,6 +1,10 @@
 package com.android.fits.database;
 
+import com.android.fits.Models.Garment;
 import com.android.fits.database.DbSchema.GarmentTable;
+import com.android.fits.database.DbSchema.Outfit_Garment_Relation;
+import com.android.fits.database.DbSchema.OutfitTable;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -29,19 +33,21 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
                 ")"
         );
 
-        db.execSQL("create table " + DbSchema.OutfitTable.NAME + "(" +
-                DbSchema.OutfitTable.Cols.UUID + " primary key, " +
-                DbSchema.OutfitTable.Cols.OUTFIT_NAME +
+        db.execSQL("create table " + OutfitTable.NAME + "(" +
+                OutfitTable.Cols.UUID + " primary key, " +
+                OutfitTable.Cols.OUTFIT_NAME +
                 ")"
         );
 
         db.execSQL(
-                "create table " + DbSchema.Outfit_Garment_Relation.NAME + "(" +
-                DbSchema.Outfit_Garment_Relation.Cols.UUID + ", " +
-                DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + ", " +
-                " primary key (" + DbSchema.Outfit_Garment_Relation.Cols.UUID + " , " + DbSchema.Outfit_Garment_Relation.Cols.GARMENT_UUID + " ) ," +
-                " FOREIGN KEY ("+ DbSchema.Outfit_Garment_Relation.Cols.UUID +") " +
-                "REFERENCES "+ DbSchema.OutfitTable.NAME+"("+ DbSchema.OutfitTable.Cols.UUID+"));"
+                "create table " + Outfit_Garment_Relation.NAME + "(" +
+                Outfit_Garment_Relation.Cols.UUID + ", " +
+                Outfit_Garment_Relation.Cols.GARMENT_UUID + ", " +
+                " primary key (" + Outfit_Garment_Relation.Cols.UUID + " , " + Outfit_Garment_Relation.Cols.GARMENT_UUID + " ) ," +
+                " FOREIGN KEY ("+ Outfit_Garment_Relation.Cols.UUID +") " +
+                "REFERENCES "+ OutfitTable.NAME+"("+ OutfitTable.Cols.UUID+ ")," +
+                " FOREIGN KEY ("+ Outfit_Garment_Relation.Cols.GARMENT_UUID +") " +
+                "REFERENCES "+ GarmentTable.NAME+"("+ GarmentTable.Cols.UUID + "))"
         );
 
 
