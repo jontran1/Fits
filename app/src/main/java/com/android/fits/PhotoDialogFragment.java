@@ -2,16 +2,13 @@ package com.android.fits;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Picture;
+
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.io.File;
 
 public class PhotoDialogFragment extends DialogFragment {
 
@@ -29,6 +26,8 @@ public class PhotoDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
+        // Getting the layout from the hosting activity so it can
+        // inflate the dialog on screen.
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.photo_dialog, null);
         mImageView = (ImageView) v.findViewById(R.id.garment_dialog_fragment_photo);
         String photoPath = getArguments().getString(ARG_FILE_PATH);

@@ -87,7 +87,7 @@ public class CreateItemDialogFragment extends DialogFragment {
         intent.putExtra(EXTRA_TYPE, type);
 
         /**
-         * getTargetRequestCode() is to set the parent's request code. So the parent
+         * getTargetRequestCode() is to set by the parent. So the parent
          * knows that this fragment is their child.
          * ResultCode is RESULT_OK to show the parent it was done correctly.
          * Intent contains information for the parent.

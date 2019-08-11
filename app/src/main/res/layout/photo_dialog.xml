@@ -2,13 +2,19 @@
 
 <android.support.constraint.ConstraintLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<ImageView
-    android:id="@+id/garment_dialog_fragment_photo"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:srcCompat="@tools:sample/avatars" />
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/garment_dialog_fragment_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="Image of clothing item" />
 </android.support.constraint.ConstraintLayout>

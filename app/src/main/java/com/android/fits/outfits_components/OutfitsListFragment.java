@@ -1,11 +1,14 @@
 package com.android.fits.outfits_components;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,13 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.fits.Models.Garment;
-import com.android.fits.Models.GarmentLab;
+import com.android.fits.EnterTextDialogFragment;
 import com.android.fits.Models.Outfit;
 import com.android.fits.Models.OutfitLab;
-import com.android.fits.Models.Top;
 import com.android.fits.R;
-import com.android.fits.TypeUtil;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +30,9 @@ public class OutfitsListFragment extends Fragment {
     private RecyclerView mOutfitsRecyclerView;
     private OutfitAdapter mOutfitAdapter;
     private boolean mSubtitleVisible;
-
+    // Uniquely identifies the DialogFragment in FragmentManager's list.
+    private static final String DIALOG_NEW_OUTFIT = "NewOutfit";
+    private static final int REQUEST_NEW_OUTFIT = 1;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -85,6 +87,10 @@ public class OutfitsListFragment extends Fragment {
 
         }
 
+        /**
+         * Binds outfit data to ViewHolder.
+         * @param outfit
+         */
         public void bind(Outfit outfit){
             mOutfit = outfit;
             mTitle.setText(mOutfit.getOutfitName());
@@ -121,6 +127,12 @@ public class OutfitsListFragment extends Fragment {
             return new OutfitHolder(layoutInflater, parent);
         }
 
+        /**
+         * Called to bind data to ViewHolder. This is called automatically after
+         * getItemCount() is called.
+         * @param outfitHolder
+         * @param i
+         */
         @Override
         public void onBindViewHolder(@NonNull OutfitHolder outfitHolder, int i) {
             Outfit outfit = mOutfits.get(i);
@@ -179,8 +191,10 @@ public class OutfitsListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_outfit:
-                Outfit outfit = new Outfit("Jon's Big Day LOL");
-                OutfitLab.get(getActivity()).addOutfit(outfit);
+                FragmentManager manager = getFragmentManager();
+                EnterTextDialogFragment enterTextDialogFragment = new EnterTextDialogFragment();
+                enterTextDialogFragment.setTargetFragment(this, REQUEST_NEW_OUTFIT);
+                enterTextDialogFragment.show(manager,DIALOG_NEW_OUTFIT);
                 updateUI();
                 return true;
             case R.id.show_subtitle:
@@ -211,6 +225,20 @@ public class OutfitsListFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent){
+        if (resultCode != Activity.RESULT_OK){
+            return;
+        }
+        if (requestCode == REQUEST_NEW_OUTFIT){
+            Outfit new_outfit = new Outfit(EnterTextDialogFragment.getStringNameOfOutfit(intent));
+            OutfitLab.get(getActivity()).addOutfit(new_outfit);
+            updateUI();
+
+        }
+
+    }
 
 
 

@@ -29,4 +29,5 @@
 
     <string name="new_outfit">New Outfit</string>
     <string name="remove_outfit">Remove Outfit</string>
+    <string name="enter_name">Enter name</string>
 </resources>

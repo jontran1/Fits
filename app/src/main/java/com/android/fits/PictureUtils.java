@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-
+/*
+This code is copied from the Big Nerd Ranch 3rd edition textbook.
+ */
 public class PictureUtils {
     /**
      * Scales down the image file to a reasonable size for a bitmap.
