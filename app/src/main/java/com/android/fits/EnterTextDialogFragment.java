@@ -15,6 +15,8 @@ public class EnterTextDialogFragment extends DialogFragment {
     private static final String STRING_NAME_OF_OUTFIT = "com.android.fits.name";
     private EditText mEditText;
     private Button mOkButton;
+
+
     /**
      * Returns the string name of outfit. The function is here because
      * the hosting parent doesn't need to know the implementation details

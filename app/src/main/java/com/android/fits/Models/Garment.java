@@ -1,5 +1,6 @@
 package com.android.fits.Models;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -7,7 +8,7 @@ import java.util.UUID;
 import com.android.fits.TypeUtil.Type;
 
 
-public abstract class Garment {
+public abstract class Garment implements Comparable<Garment>{
 
     private UUID mId;
     private Date mDate;
@@ -108,4 +109,11 @@ public abstract class Garment {
     public String toString(){
         return getId().toString();
     }
+
+    @Override
+    public int compareTo(Garment garment){
+        return garment.getDate().compareTo(getDate());
+    }
+
 }
+

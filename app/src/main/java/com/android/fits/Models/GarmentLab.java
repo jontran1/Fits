@@ -3,7 +3,6 @@ package com.android.fits.Models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
@@ -16,6 +15,7 @@ import com.android.fits.database.DbSchema;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
@@ -61,7 +61,7 @@ public class GarmentLab {
      * Get a list of garment objects.
      * @return
      */
-    public List<Garment> getGarments() {
+    public List<Garment> getGarments_OrderedBy_RecentDate() {
         List<Garment> list = new ArrayList<>();
         FitsCursorWrapper cursorWrapper = queryGarments(null, null);
 
@@ -74,6 +74,7 @@ public class GarmentLab {
         }finally {
             cursorWrapper.close();
         }
+        Collections.sort(list, new SortByDate());
         return list;
     }
 
@@ -133,7 +134,7 @@ public class GarmentLab {
 
 
     public int getSize(){
-        return getGarments().size();
+        return getGarments_OrderedBy_RecentDate().size();
     }
 
     /**
@@ -223,3 +224,4 @@ public class GarmentLab {
         return garment;
     }
 }
+

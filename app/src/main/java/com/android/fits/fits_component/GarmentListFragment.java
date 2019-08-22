@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.fits.Models.Garment;
@@ -29,6 +32,7 @@ import com.android.fits.Models.GarmentLab;
 import java.io.File;
 import java.util.List;
 
+import com.android.fits.PictureUtils;
 import com.android.fits.R;
 import com.android.fits.TypeUtil.Type;
 
@@ -116,6 +120,7 @@ public class GarmentListFragment extends Fragment {
         private TextView mTypeView;
         private TextView mSizeView;
         private TextView mDateView;
+        private ImageView mImageView;
         private Garment mGarment;
 
         /**
@@ -132,11 +137,13 @@ public class GarmentListFragment extends Fragment {
         * @param parent
         */
         public GarmentHolder(LayoutInflater inflater, ViewGroup parent){
+            // this is inflating the list_item_garment.xml on to item_list.xml.
             super(inflater.inflate(R.layout.list_item_garment, parent, false));
             itemView.setOnClickListener(this);
             mTypeView = (TextView) itemView.findViewById(R.id.garment_list_item_type);
             mSizeView = (TextView) itemView.findViewById(R.id.garment_list_item_size);
             mDateView = (TextView) itemView.findViewById(R.id.garment_list_item_date);
+            mImageView = (ImageView) itemView.findViewById(R.id.garment_list_item_image);
         }
 
         @Override
@@ -154,6 +161,13 @@ public class GarmentListFragment extends Fragment {
             mTypeView.setText(mGarment.getType());
             mSizeView.setText(getString(R.string.list_item_size) + mGarment.getSize());
             mDateView.setText(getString(R.string.list_item_date_created) + mGarment.getDate().toString());
+            File imgFile = new File(GarmentLab.get(getActivity()).getPhotoFile(mGarment).getPath());
+            if (imgFile.exists()){
+                Bitmap img = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                mImageView.setImageBitmap(PictureUtils.getScaledBitmap(imgFile.getPath(),getActivity()));
+                mImageView.setImageBitmap(img);
+
+            }
         }
 
     }
@@ -199,7 +213,7 @@ public class GarmentListFragment extends Fragment {
          */
         @Override
         public void onBindViewHolder(@NonNull GarmentHolder garmentHolder, int i) {
-            Garment garment = mGarments.get(mGarments.size()-i-1);
+            Garment garment = mGarments.get(i);
             garmentHolder.bind(garment);
         }
 
@@ -216,9 +230,8 @@ public class GarmentListFragment extends Fragment {
      * Updates the garment list fragment.
      */
     private void updateUI(){
-//        System.out.println("Recycler List was updated....");
         GarmentLab garmentLab = GarmentLab.get(getActivity());
-        List<Garment> garments = garmentLab.getGarments();
+        List<Garment> garments = garmentLab.getGarments_OrderedBy_RecentDate();
 
         mGarmentAdapter = new GarmentAdapter(garments);
         mGarmentRecyclerView.setAdapter(mGarmentAdapter);
@@ -349,7 +362,7 @@ public class GarmentListFragment extends Fragment {
 
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
-            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(mGarmentAdapter.mGarments.size()-1);
+            Garment newlyCreatedGarment =  mGarmentAdapter.mGarments.get(0);
             Intent intent = GarmentPagerActivity.newIntent(getActivity(), newlyCreatedGarment.getId());
             startActivity(intent);
 
