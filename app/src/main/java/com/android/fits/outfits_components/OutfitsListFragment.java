@@ -34,12 +34,23 @@ public class OutfitsListFragment extends Fragment {
     private static final String DIALOG_NEW_OUTFIT = "NewOutfit";
     private static final int REQUEST_NEW_OUTFIT = 1;
 
+    /**
+     * Initializes the fragment
+     * @param saveInstanceState
+     */
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
 
     }
 
+    /**
+     * Creates the view.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -226,13 +237,25 @@ public class OutfitsListFragment extends Fragment {
     }
 
 
+    /**
+     * Once a child activity dies the parent will receive a resultCode
+     * letting it know what to do next.
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
         if (resultCode != Activity.RESULT_OK){
             return;
         }
+        /**
+         * Creates a new outfit, adds it to database, and
+         * updates recycler list.
+         */
         if (requestCode == REQUEST_NEW_OUTFIT){
-            Outfit new_outfit = new Outfit(EnterTextDialogFragment.getStringNameOfOutfit(intent));
+            String nameOfOutfit = EnterTextDialogFragment.getStringNameOfOutfit(intent);
+            Outfit new_outfit = new Outfit(nameOfOutfit);
             OutfitLab.get(getActivity()).addOutfit(new_outfit);
             updateUI();
 
