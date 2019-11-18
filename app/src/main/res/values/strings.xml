@@ -7,6 +7,7 @@
     <string name="garment_description">Description</string>
     <string name="garment_type">Garment Type</string>
     <string name="type">Type</string>
+    <string name="garment_date">Date Created</string>
 
     <string name="ok">Ok</string>
     <string name="radio_hats">Hats</string>

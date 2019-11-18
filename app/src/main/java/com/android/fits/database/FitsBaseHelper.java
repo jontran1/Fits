@@ -23,6 +23,9 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db){
+        /**
+         * UUID is the primary key.
+         */
         db.execSQL("create table " + GarmentTable.NAME + "(" +
                 GarmentTable.Cols.UUID + " primary key, " +
                 GarmentTable.Cols.DESCRIPTION + ", " +
@@ -33,6 +36,9 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
                 ")"
         );
 
+        /**
+         * UUID is the primary key.
+         */
         db.execSQL("create table " + OutfitTable.NAME + "(" +
                 OutfitTable.Cols.UUID + " primary key, " +
                 OutfitTable.Cols.OUTFIT_NAME + ", " +
@@ -40,6 +46,11 @@ public class FitsBaseHelper extends SQLiteOpenHelper {
                 ")"
         );
 
+        /**
+         * Outfit ID UUID and Garment ID UUID are the primary key for each relation.
+         * The outfit ID and garment ID has a foreign key relation to the Garment Table
+         * and Outfit Table.
+         */
         db.execSQL(
                 "create table " + Outfit_Garment_Relation.NAME + "(" +
                 Outfit_Garment_Relation.Cols.UUID + ", " +

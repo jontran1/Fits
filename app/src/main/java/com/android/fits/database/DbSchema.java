@@ -20,6 +20,13 @@ public class DbSchema {
         }
     }
 
+    /**
+     * This is the representation of what the outfit table looks like.
+     * Table Name: outfits
+     * UUID is outfit ID
+     * OUTFIT_NAME is name of outfit
+     * DATE is the date the outfit was created.
+     */
     public static final class OutfitTable{
         public static final String NAME = "outfits";
 
@@ -30,6 +37,10 @@ public class DbSchema {
         }
     }
 
+    /**
+     * Representation of the garments related to the outfit.
+     * Each outfit UUID has a garment ID.
+     */
     public static final class Outfit_Garment_Relation{
         public static final String NAME = "outfits_garments_relations";
 

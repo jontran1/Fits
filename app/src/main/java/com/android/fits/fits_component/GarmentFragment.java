@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -127,6 +128,7 @@ public class GarmentFragment extends Fragment {
 
         mDate = (TextView) v.findViewById(R.id.garment_fragment_date);
         mDate.setText("Date Create: " + mGarment.getDate().toString());
+        System.out.println(mGarment.getDate().toString());
 
         mImageView = (ImageView)v.findViewById(R.id.garment_fragment_photo);
         mImageButton = (ImageButton)v.findViewById(R.id.garment_fragment_camera_button);
@@ -403,7 +405,13 @@ public class GarmentFragment extends Fragment {
                     mPhotoFile.getPath(),
                     getActivity()
             );
-            mImageView.setImageBitmap(bitmap);
+            File imgFile = new File(GarmentLab.get(getActivity()).getPhotoFile(mGarment).getPath());
+            if (imgFile.exists()){
+                Bitmap img = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                mImageView.setImageBitmap(img);
+
+            }
+
         }
     }
 

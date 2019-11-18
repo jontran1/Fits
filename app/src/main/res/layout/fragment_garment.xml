@@ -11,20 +11,16 @@
         android:layout_margin="16dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/garment_fragment_photo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
                     android:background="@android:color/darker_gray"
                     android:cropToPadding="true"
                     android:scaleType="centerInside" />
@@ -38,10 +34,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
                 <TextView
                     style="?android:listSeparatorTextViewStyle"
@@ -65,10 +57,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            </LinearLayout>
 
 
-        </LinearLayout>
 
         <TextView
             style="?android:listSeparatorTextViewStyle"
@@ -79,10 +69,17 @@
             android:id="@+id/garment_fragment_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/garment_date"/>
         <TextView
             android:id="@+id/garment_fragment_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
 
     </LinearLayout>
